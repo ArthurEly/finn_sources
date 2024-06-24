@@ -1,0 +1,19 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:13:54 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Mon Jun 24 00:21:34 2024
+# Process ID: 201889
+# Current directory: /home/artti/Desktop/finn_fpga/finn_chiplet_projects/finn_chiplet_v2.1b/feeder/finn_feeder_chiplet/finn_feeder_chiplet/solution1/impl/ip
+# Command line: vivado -notrace -mode batch -source run_ippack.tcl
+# Log file: /home/artti/Desktop/finn_fpga/finn_chiplet_projects/finn_chiplet_v2.1b/feeder/finn_feeder_chiplet/finn_feeder_chiplet/solution1/impl/ip/vivado.log
+# Journal file: /home/artti/Desktop/finn_fpga/finn_chiplet_projects/finn_chiplet_v2.1b/feeder/finn_feeder_chiplet/finn_feeder_chiplet/solution1/impl/ip/vivado.jou
+# Running On: artti-desktop, OS: Linux, CPU Frequency: 3899.690 MHz, CPU Physical cores: 6, Host memory: 16689 MB
+#-----------------------------------------------------------
+source run_ippack.tcl -notrace
+ipx::create_core: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1329.770 ; gain = 50.836 ; free physical = 292 ; free virtual = 8166
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2023.2/data/ip'.
+INFO: [Common 17-206] Exiting Vivado at Mon Jun 24 00:21:47 2024...

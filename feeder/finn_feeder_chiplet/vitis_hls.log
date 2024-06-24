@@ -1,0 +1,56 @@
+INFO: [HLS 200-10] Running '/tools/Xilinx/Vitis_HLS/2023.2/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'artti' on host 'artti-desktop' (Linux_x86_64 version 6.5.0-41-generic) on Mon Jun 24 00:21:31 -03 2024
+INFO: [HLS 200-10] On os Ubuntu 22.04.4 LTS
+INFO: [HLS 200-10] In directory '/home/artti/Desktop/finn_fpga/finn_chiplet_projects/finn_chiplet_v2.1b/feeder/finn_feeder_chiplet'
+INFO: [HLS 200-2053] The vitis_hls executable is being deprecated. Consider using vitis-run --mode hls --tcl
+Sourcing Tcl script '/home/artti/Desktop/finn_fpga/finn_chiplet_projects/finn_chiplet_v2.1b/feeder/finn_feeder_chiplet/finn_feeder_chiplet/solution1/export.tcl'
+INFO: [HLS 200-1510] Running: source /home/artti/Desktop/finn_fpga/finn_chiplet_projects/finn_chiplet_v2.1b/feeder/finn_feeder_chiplet/finn_feeder_chiplet/solution1/export.tcl
+INFO: [HLS 200-1510] Running: open_project finn_feeder_chiplet 
+INFO: [HLS 200-10] Opening project '/home/artti/Desktop/finn_fpga/finn_chiplet_projects/finn_chiplet_v2.1b/feeder/finn_feeder_chiplet/finn_feeder_chiplet'.
+INFO: [HLS 200-1510] Running: set_top finn_feeder_chiplet 
+INFO: [HLS 200-1510] Running: add_files finn_feeder.h 
+INFO: [HLS 200-10] Adding design file 'finn_feeder.h' to the project
+INFO: [HLS 200-1510] Running: add_files finn_feeder_chiplet.cpp 
+INFO: [HLS 200-10] Adding design file 'finn_feeder_chiplet.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files -tb finn_feeder_test.cpp -cflags -Wno-unknown-pragmas 
+INFO: [HLS 200-10] Adding test bench file 'finn_feeder_test.cpp' to the project
+INFO: [HLS 200-1510] Running: open_solution solution1 -flow_target vivado 
+INFO: [HLS 200-10] Opening solution '/home/artti/Desktop/finn_fpga/finn_chiplet_projects/finn_chiplet_v2.1b/feeder/finn_feeder_chiplet/finn_feeder_chiplet/solution1'.
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [SYN 201-201] Setting up clock 'default' with an uncertainty of 0.5ns.
+INFO: [HLS 200-1611] Setting target device to 'xc7z020-clg400-1'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see docs.xilinx.com/access/sources/dita/topic?Doc_Version=2023.2%20English&url=ug1448-hls-guidance&resourceid=200-1505.html
+INFO: [HLS 200-1464] Running solution command: config_export -display_name {FINN Feeder chiplet 8 bits}
+INFO: [HLS 200-1464] Running solution command: config_export -format=ip_catalog
+INFO: [HLS 200-1464] Running solution command: config_export -output=/home/artti/Desktop/finn_fpga/finn_chiplet_projects/finn_chiplet_v2.1b/feeder/finn_feeder_chiplet/ip
+INFO: [HLS 200-1464] Running solution command: config_export -rtl=verilog
+INFO: [HLS 200-1464] Running solution command: config_export -version=2.1.1
+INFO: [HLS 200-1464] Running solution command: config_cosim -rtl=vhdl
+INFO: [HLS 200-1464] Running solution command: config_cosim -tool=xsim
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: config_export -display_name FINN Feeder chiplet 8 bits -format ip_catalog -output /home/artti/Desktop/finn_fpga/finn_chiplet_projects/finn_chiplet_v2.1b/feeder/finn_feeder_chiplet/ip -rtl verilog -version 2.1.1 
+INFO: [HLS 200-1510] Running: config_cosim -rtl vhdl -tool xsim 
+INFO: [HLS 200-1510] Running: set_clock_uncertainty 5% 
+INFO: [HLS 200-1510] Running: source ./finn_feeder_chiplet/solution1/directives.tcl
+INFO: [HLS 200-1510] Running: set_directive_top -name finn_feeder_chiplet finn_feeder_chiplet 
+INFO: [HLS 200-1510] Running: export_design -rtl verilog -format ip_catalog -output /home/artti/Desktop/finn_fpga/finn_chiplet_projects/finn_chiplet_v2.1b/feeder/finn_feeder_chiplet/ip 
+INFO: [IMPL 213-8] Exporting RTL as a Vivado IP.
+
+****** Vivado v2023.2 (64-bit)
+  **** SW Build 4029153 on Fri Oct 13 20:13:54 MDT 2023
+  **** IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+  **** SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source run_ippack.tcl -notrace
+ipx::create_core: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1329.770 ; gain = 50.836 ; free physical = 292 ; free virtual = 8166
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2023.2/data/ip'.
+INFO: [Common 17-206] Exiting Vivado at Mon Jun 24 00:21:47 2024...
+INFO: [HLS 200-802] Generated output file ip/export.zip
+INFO: [HLS 200-111] Finished Command export_design CPU user time: 11.89 seconds. CPU system time: 0.71 seconds. Elapsed time: 18.7 seconds; current allocated memory: 8.289 MB.
+INFO: [HLS 200-112] Total CPU user time: 13.25 seconds. Total CPU system time: 0.93 seconds. Total elapsed time: 20.09 seconds; peak allocated memory: 266.859 MB.

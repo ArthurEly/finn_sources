@@ -1,0 +1,4 @@
+<VitisHLS:BurstInfo>
+    <burst group="BURST_VERBOSE_MISSED" fe_name="NonSimpleMemoryAccessMissed" src_info="finn_feeder_chiplet.cpp:35:18" msg_id="214-227" msg_severity="INFO" msg_body="Volatile or Atomic access cannot be transformed" resolution="214-227" BundleName="gmem" VarName="ext_mem" ParentFunc="finn_feeder_chiplet(hls::stream&lt;hls::axis&lt;ap_uint&lt;8&gt;, 0ul, 0ul, 0ul, (unsigned char)0, false&gt;, 0&gt;&amp;, hls::stream&lt;hls::axis&lt;ap_uint&lt;8&gt;, 0ul, 0ul, 0ul, (unsigned char)0, false&gt;, 0&gt;&amp;, unsigned char volatile*, unsigned int volatile*, unsigned int, unsigned int, unsigned int, bool volatile*)" OrigID="VITIS_LOOP_38_3.load.6" OrigAccess-DebugLoc="finn_feeder_chiplet.cpp:35:18" OrigDirection="read"/>
+</VitisHLS:BurstInfo>
+

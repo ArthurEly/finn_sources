@@ -1,0 +1,9 @@
+INFO: [SIM 2] *************** CSIM start ***************
+INFO: [SIM 4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../finn_feeder_test.cpp in debug mode
+   Compiling ../../../../finn_feeder_chiplet.cpp in debug mode
+   Generating csim.exe
+Teste concluído com sucesso!
+INFO [HLS SIM]: The maximum depth reached by any hls::stream() instance in the design is 24576
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************

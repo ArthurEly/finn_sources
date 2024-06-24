@@ -1,0 +1,12 @@
+vhdl xil_defaultlib "AESL_sim_pkg.vhd"
+sv work "glbl.v"
+vhdl xil_defaultlib "finn_feeder_chiplet_control_s_axi.vhd"
+vhdl xil_defaultlib "finn_feeder_chiplet.vhd"
+vhdl xil_defaultlib "finn_feeder_chiplet_flow_control_loop_pipe_sequential_init.vhd"
+vhdl xil_defaultlib "AESL_axi_s_OUTPUT_STREAM.vhd"
+vhdl xil_defaultlib "finn_feeder_chiplet_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_1.vhd"
+vhdl xil_defaultlib "finn_feeder_chiplet_regslice_both.vhd"
+vhdl xil_defaultlib "AESL_axi_slave_control.vhd"
+vhdl xil_defaultlib "AESL_axi_s_INPUT_STREAM.vhd"
+vhdl xil_defaultlib "finn_feeder_chiplet.autotb.vhd"
+

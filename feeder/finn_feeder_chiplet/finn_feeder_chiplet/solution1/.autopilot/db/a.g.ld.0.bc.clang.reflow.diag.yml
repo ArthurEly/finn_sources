@@ -1,0 +1,56 @@
+--- !Failure
+Pass:            generate-ir-wrapper
+Name:            MAXIDepthUnspecified
+DebugLoc:        { File: finn_feeder_chiplet.cpp, Line: 12, Column: 0 }
+Function:        _Z19finn_feeder_chipletRN3hls6streamINS_4axisI7ap_uintILi8EELm0ELm0ELm0ELh0ELb0EEELi0EEES6_PVhPVjjjjPVb
+Args:            
+  - String:          'A depth specification is required for MAXI interface port '''
+  - Name:            ext_mem
+  - String:          ''' for cosimulation.'
+...
+--- !Passed
+Pass:            reflow-infer-unroll
+Name:            ImplicitUnroll
+DebugLoc:        { File: finn_feeder_chiplet.cpp, Line: 38, Column: 30 }
+Function:        _Z19finn_feeder_chipletRN3hls6streamINS_4axisI7ap_uintILi8EELm0ELm0ELm0ELh0ELb0EEELi0EEES6_PVhPVjjjjPVb
+Args:            
+  - String:          'Loop '''
+  - LoopName:        VITIS_LOOP_38_3
+  - String:          ''' is marked as complete unroll implied by the pipeline pragma'
+...
+--- !Passed
+Pass:            reflow-pragma-loop-unroll
+Name:            PragmaFullyUnroll
+DebugLoc:        { File: finn_feeder_chiplet.cpp, Line: 12, Column: 0 }
+Function:        _Z19finn_feeder_chipletRN3hls6streamINS_4axisI7ap_uintILi8EELm0ELm0ELm0ELh0ELb0EEELi0EEES6_PVhPVjjjjPVb
+Args:            
+  - String:          'Unrolling loop '''
+  - LoopName:        VITIS_LOOP_38_3
+  - String:          ''' ('
+  - LoopLoc:         'finn_feeder_chiplet.cpp:38:30'
+  - String:          ') '
+  - String:          'in function '''
+  - String:          finn_feeder_chiplet
+  - String:          ''' completely with a factor of '
+  - Factor:          '4'
+...
+--- !Missed
+Pass:            reflow-burst-inference
+Name:            NonSimpleMemoryAccess
+DebugLoc:        { File: finn_feeder_chiplet.cpp, Line: 35, Column: 18 }
+Function:        _Z19finn_feeder_chipletRN3hls6streamINS_4axisI7ap_uintILi8EELm0ELm0ELm0ELh0ELb0EEELi0EEES6_PVhPVjjjjPVb
+Args:            
+  - String:          Volatile or Atomic access cannot be transformed
+  - String:          ' _XLX_SEP_ '
+  - OrigAccess:      word
+    DebugLoc:        { File: finn_feeder_chiplet.cpp, Line: 35, Column: 18 }
+  - OrigDirection:   read
+  - OrigID:          VITIS_LOOP_38_3.load.6
+  - ArrayName:       ext_mem
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - Function:        'finn_feeder_chiplet(hls::stream<hls::axis<ap_uint<8>, 0ul, 0ul, 0ul, (unsigned char)0, false>, 0>&, hls::stream<hls::axis<ap_uint<8>, 0ul, 0ul, 0ul, (unsigned char)0, false>, 0>&, unsigned char volatile*, unsigned int volatile*, unsigned int, unsigned int, unsigned int, bool volatile*)'
+    DebugLoc:        { File: finn_feeder_chiplet.cpp, Line: 12, Column: 0 }
+  - String:          ' '
+...
