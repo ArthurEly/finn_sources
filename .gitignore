@@ -1,2 +1,8 @@
-
 finn_riscv_1.0.zip
+*.jou
+*.log
+__pycache__
+compatible*.sv
+script.tcl
+projeto_teste
+.Xil

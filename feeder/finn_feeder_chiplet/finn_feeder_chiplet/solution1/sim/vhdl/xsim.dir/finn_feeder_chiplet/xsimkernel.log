@@ -1,7 +1,0 @@
-Running: xsim.dir/finn_feeder_chiplet/xsimk -simmode gui -wdb finn_feeder_chiplet.wdb -simrunnum 0 -socket 45817
-Design successfully loaded
-Design Loading Memory Usage: 22896 KB (Peak: 23088 KB)
-Design Loading CPU Usage: 0 ms
-Simulation completed
-Simulation Memory Usage: 104828 KB (Peak: 162164 KB)
-Simulation CPU Usage: 40 ms

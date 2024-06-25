@@ -1,10 +1,84 @@
+from typing import Optional
+import util 
 
+def generate_tcl_script(proj_base_path: str, project_name: str, bd_name: str, script_dir: str, 
+                        sv_file : str, finn_name : str, feeder_name : str) -> str:
+    # Define o conteúdo do script TCL
+    project_path = f"{proj_base_path}/{project_name}.xpr"
+    bd_file = f"{proj_base_path}/{project_name}.srcs/sources_1/bd/{bd_name}/{bd_name}.bd"
+    gen_bd_dir = f"{proj_base_path}/{project_name}.gen/sources_1/bd/{bd_name}"
+
+    finn_ip_dir = f"{script_dir}/IPs/FINN_ips/{finn_name}/ip"
+    feeder_ip_dir = f"{script_dir}/IPs/Feeder_ips/{feeder_name}/ip"
+
+    finn_vlnv = util.extract_ip_vlnv(f"{finn_ip_dir}/component.xml")
+    feeder_vlnv = util.extract_ip_vlnv(f"{feeder_ip_dir}/component.xml")
+
+    tcl_script = f"""
+# Open the project
+open_project {project_path}
+
+# Create block design
+create_bd_design "{bd_name}"
+
+import_files {sv_file}
+
+# Update compile order
+update_compile_order -fileset sources_1
+
+# Set IP repository paths
+set_property ip_repo_paths {{{finn_ip_dir} {feeder_ip_dir}}} [current_project]
+update_ip_catalog
+
+open_bd_design {bd_file}
+
+# Create IP blocks
+startgroup
+create_bd_cell -type ip -vlnv {finn_vlnv['vendor']}:{finn_vlnv['library']}:{finn_vlnv['name']}:{finn_vlnv['version']} {finn_name}
+create_bd_cell -type ip -vlnv {feeder_vlnv['vendor']}:{feeder_vlnv['library']}:{feeder_vlnv['name']}:{feeder_vlnv['version']} {feeder_name}
+endgroup
+
+# Connect interfaces
+connect_bd_intf_net [get_bd_intf_pins {finn_name}/m_axis_0] [get_bd_intf_pins {feeder_name}/in_stream]
+connect_bd_intf_net [get_bd_intf_pins {finn_name}/s_axis_0] [get_bd_intf_pins {feeder_name}/out_stream]
+
+# Make pins external
+make_bd_pins_external [get_bd_cells {feeder_name}]
+make_bd_intf_pins_external [get_bd_cells {feeder_name}]
+
+# Connect clocks and resets
+connect_bd_net [get_bd_ports ap_clk_0] [get_bd_pins {finn_name}/ap_clk]
+connect_bd_net [get_bd_ports ap_rst_n_0] [get_bd_pins {finn_name}/ap_rst_n]
+
+# Change user and id ports width
+startgroup
+set_property -dict [list \\
+  CONFIG.C_M_AXI_GMEM_ARUSER_WIDTH {{2}} \\
+  CONFIG.C_M_AXI_GMEM_AWUSER_WIDTH {{2}} \\
+  CONFIG.C_M_AXI_GMEM_BUSER_WIDTH {{2}} \\
+  CONFIG.C_M_AXI_GMEM_ENABLE_USER_PORTS {{true}} \\
+  CONFIG.C_M_AXI_GMEM_ID_WIDTH {{2}} \\
+  CONFIG.C_M_AXI_GMEM_RUSER_WIDTH {{2}} \\
+  CONFIG.C_M_AXI_GMEM_WUSER_WIDTH {{2}} \\
+] [get_bd_cells {feeder_name}]
+endgroup
+
+# Regenerate layout and make wrapper
+regenerate_bd_layout
+make_wrapper -files [get_files {bd_file}] -top
+add_files -norecurse {gen_bd_dir}/hdl/{bd_name}_wrapper.v
+"""
+
+    return tcl_script
+
+def generate_compatible_finn_sv(bd_name: str) -> str:
+    compatible_finn_sv = f"""
 `timescale 1 ns / 1 ps
 
 `include "axi/assign.svh"
 `include "axi/typedef.svh"
 
-module compatible_finn_chiplet (
+module compatible_{bd_name} (
     input wire clk,
     input wire rst_n,
     AXI_BUS.Master axi_master_mem,
@@ -28,8 +102,8 @@ module compatible_finn_chiplet (
         .mst(conv)
     );
              
-    // Instance of finn_chiplet_wrapper
-    finn_chiplet_wrapper finn_chiplet_inst (
+    // Instance of {bd_name}_wrapper
+    {bd_name}_wrapper finn_chiplet_inst (
       .ap_clk_0                 (clk),
       .ap_rst_n_0               (rst_n),
       .done_irq_0               (),
@@ -101,3 +175,5 @@ module compatible_finn_chiplet (
     );
 
 endmodule
+"""
+    return compatible_finn_sv

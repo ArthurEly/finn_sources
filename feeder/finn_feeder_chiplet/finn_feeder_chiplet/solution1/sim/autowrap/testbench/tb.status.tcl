@@ -1,1 +1,0 @@
-set ::AESL_AUTOSIM::gTopFileName /home/artti/Desktop/finn_fpga/finn_chiplet_projects/finn_chiplet_v2.0/feeder/finn_feeder_chiplet/finn_feeder_chiplet/solution1/./sim/autowrap/testbench/finn_feeder_chiplet.cpp_pre.cpp.tb.cpp
