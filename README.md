@@ -7,7 +7,7 @@ Este repositório contém scripts e módulos necessários para configurar e exec
 
 ### `import_finn_to_cv32.py`
 
-Este script é responsável por configurar um projeto no Vivado, criando um design de bloco e conectando os IPs do FINN e do Feeder. Esse script em específico importa um IP pronto para conectar-se a xbar do projeto RISC-V feito por CHI2P.
+Este script é responsável por configurar um projeto no Vivado, criando um design de bloco e conectando os IPs do FINN e do Feeder. Esse script em específico importa um IP pronto para conectar-se a xbar do projeto RISC-V feito por CHI2P. Há também uma versão adaptada para Windows.
 
 ### `templates.py`
 
