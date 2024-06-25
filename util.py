@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import time
+import os
 import xml.etree.ElementTree as ET
 
 def extract_ip_vlnv(xml_file):
@@ -49,6 +50,20 @@ def execute_cmd(cmd : str) -> subprocess.Popen[bytes]:
         sys.stdout.flush()
         time.sleep(1)
     return process
+
+def check_path(path: str):   
+    try:
+        if not os.path.exists(path):
+            raise ValueError(f"O caminho não é válido: {path}")
+        print("O caminho é válido.")
+        return 1
+    except ValueError as e:
+        print(e)
+        return 0  
+    
+
+# Exemplo de uso
+
 
 # def clean_project ():
 #     print("Limpando o projeto")
