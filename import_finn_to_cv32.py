@@ -4,14 +4,18 @@ import util
 
 # MUDE ESSES PARÂMETROS
 script_dir = os.getcwd()
-isWindows = False
+isWindows = True
 script_dir = script_dir.replace("\\","/") # for Windows
-proj_base_path = "/home/artti/Desktop/finn_sources/projeto_teste"
-# for Windows: proj_base_path = r"C:/Users/Usuario/Desktop/Bolsa/teste" # com a barra assim mesmo -> / 
-project_name = "projeto_teste"
-bd_name = "finn_chiplet"
+
+if isWindows:
+    proj_base_path = r"C:/Users/Usuario/Desktop/Bolsa/teste" # com a barra assim mesmo -> / 
+else:
+    proj_base_path = "/home/artti/Desktop/finn_sources/projeto_teste"
+    
+project_name = "teste"
+bd_name = "finn_chiplet_win2"
 finn_name = "t2w8_5000fps"
-fpga_board_name = "Nexys4"
+fpga_board_name = "PYNQ_Z2"
 feeder_name = "feeder_21b"
 
 sv_file = ""
@@ -39,13 +43,17 @@ with open("script.tcl", "w") as file:
     ))
     print("Script TCL gerado com sucesso!")
 
-# Executa o comando Vivado no terminal
-print("Executando Vivado...")
-cmd = f"vivado -mode batch -source ./script.tcl"
-process = util.execute_cmd(cmd)
-
-# Verifica o resultado
-if process.returncode == 0:
-    print("\nScript TCL executado com sucesso!")
+if isWindows:
+    print("Abra o script no Vivado")
+    print(f"Tools > Run Tcl Script... > {script_dir}/script.tcl")
 else:
-    util.print_error(process)
+    # Executa o comando Vivado no terminal
+    print("Executando Vivado...")
+    cmd = f"vivado -mode batch -source ./script.tcl"
+    process = util.execute_cmd(cmd)
+
+    # Verifica o resultado
+    if process.returncode == 0:
+        print("\nScript TCL executado com sucesso!")
+    else:
+        util.print_error(process)

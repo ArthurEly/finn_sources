@@ -34,7 +34,12 @@ def extract_ip_vlnv(xml_file):
 def print_error(process : subprocess.Popen[bytes]):
     print("\nErro ao executar o script TCL no Vivado.")
     print("Saída de erro:")
-    print(process.stderr.read().decode('utf-8'))
+    try:
+        print(process.stderr.read().decode('utf-8'))
+    except Exception as e:
+        print(f"Erro ao mostrar o erro. ")
+        print(f"Isso pode estar relacionado ao S.O. -> Mude isWindows=True")
+        return None
 
 def execute_cmd(cmd : str) -> subprocess.Popen[bytes]:
     process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
