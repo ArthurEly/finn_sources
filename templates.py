@@ -2,21 +2,22 @@ from typing import Optional
 import util 
 
 def generate_tcl_script(proj_base_path: str, project_name: str, bd_name: str, script_dir: str, 
-                        sv_file : str, finn_name : str, feeder_name : str) -> str:
+                        sv_file : str, finn_name : str, feeder_name : str, fpga_board_name : str,
+                        isWindows : bool, id_width : int, user_width: int) -> str:
     # Define o conteúdo do script TCL
-    project_path = f"{proj_base_path}\{project_name}.xpr"
-    bd_file = f"{proj_base_path}\{project_name}.srcs\sources_1\bd\{bd_name}\{bd_name}.bd"
-    gen_bd_dir = f"{proj_base_path}\{project_name}.gen\sources_1\bd\{bd_name}"
+    project_path = f"{proj_base_path}/{project_name}.xpr"
+    bd_file = f"{proj_base_path}/{project_name}.srcs/sources_1/bd/{bd_name}/{bd_name}.bd"
+    gen_bd_dir = f"{proj_base_path}/{project_name}.gen/sources_1/bd/{bd_name}"
 
-    finn_ip_dir = f"{script_dir}\IPs\FINN_ips\{finn_name}\ip"
-    feeder_ip_dir = f"{script_dir}\IPs\Feeder_ips\{feeder_name}\ip"
+    finn_ip_dir = f"{script_dir}/IPs/FINN_ips/{finn_name}/ip"
+    feeder_ip_dir = f"{script_dir}/IPs/Feeder_ips/{feeder_name}/{fpga_board_name}/ip"
 
-    finn_vlnv = util.extract_ip_vlnv(f"{finn_ip_dir}\component.xml")
-    feeder_vlnv = util.extract_ip_vlnv(f"{feeder_ip_dir}\component.xml")
+    finn_vlnv = util.extract_ip_vlnv(f"{finn_ip_dir}/component.xml")
+    feeder_vlnv = util.extract_ip_vlnv(f"{feeder_ip_dir}/component.xml")
 
     tcl_script = f"""
 # Open the project
-open_project {project_path}
+{'' if isWindows else f'open_project {project_path}'}
 
 # Create block design
 create_bd_design "{bd_name}"
@@ -53,30 +54,31 @@ connect_bd_net [get_bd_ports ap_rst_n_0] [get_bd_pins {finn_name}/ap_rst_n]
 # Change user and id ports width
 startgroup
 set_property -dict [list \\
-  CONFIG.C_M_AXI_GMEM_ARUSER_WIDTH {{2}} \\
-  CONFIG.C_M_AXI_GMEM_AWUSER_WIDTH {{2}} \\
-  CONFIG.C_M_AXI_GMEM_BUSER_WIDTH {{2}} \\
+  CONFIG.C_M_AXI_GMEM_ARUSER_WIDTH {{{user_width}}} \\
+  CONFIG.C_M_AXI_GMEM_AWUSER_WIDTH {{{user_width}}} \\
+  CONFIG.C_M_AXI_GMEM_BUSER_WIDTH {{{user_width}}} \\
   CONFIG.C_M_AXI_GMEM_ENABLE_USER_PORTS {{true}} \\
-  CONFIG.C_M_AXI_GMEM_ID_WIDTH {{2}} \\
-  CONFIG.C_M_AXI_GMEM_RUSER_WIDTH {{2}} \\
-  CONFIG.C_M_AXI_GMEM_WUSER_WIDTH {{2}} \\
+  CONFIG.C_M_AXI_GMEM_ID_WIDTH {{{id_width}}} \\
+  CONFIG.C_M_AXI_GMEM_RUSER_WIDTH {{{user_width}}} \\
+  CONFIG.C_M_AXI_GMEM_WUSER_WIDTH {{{user_width}}} \\
 ] [get_bd_cells {feeder_name}]
 endgroup
 
 # Regenerate layout and make wrapper
 regenerate_bd_layout
 make_wrapper -files [get_files {bd_file}] -top
-add_files -norecurse {gen_bd_dir}\hdl\{bd_name}_wrapper.v
+add_files -norecurse {gen_bd_dir}/hdl/{bd_name}_wrapper.v
 """
 
     return tcl_script
 
+
 def generate_compatible_finn_sv(bd_name: str) -> str:
     compatible_finn_sv = f"""
-`timescale 1 ns \ 1 ps
+`timescale 1 ns / 1 ps
 
-`include "axi\assign.svh"
-`include "axi\typedef.svh"
+`include "axi/assign.svh"
+`include "axi/typedef.svh"
 
 module compatible_{bd_name} (
     input wire clk,
@@ -102,7 +104,7 @@ module compatible_{bd_name} (
         .mst(conv)
     );
              
-    \ Instance of {bd_name}_wrapper
+    // Instance of {bd_name}_wrapper
     {bd_name}_wrapper finn_chiplet_inst (
       .ap_clk_0                 (clk),
       .ap_rst_n_0               (rst_n),
@@ -177,3 +179,21 @@ module compatible_{bd_name} (
 endmodule
 """
     return compatible_finn_sv
+
+# def clean_script(proj_base_path: str, project_name: str, bd_name: str, script_dir: str, 
+#                 sv_file : str, finn_name : str, feeder_name : str, fpga_board_name : str,
+#                 isWindows : bool) -> str:
+
+#     project_path = f"{proj_base_path}/{project_name}.xpr"
+#     gen_bd_dir = f"{proj_base_path}/{project_name}.gen/sources_1/bd/{bd_name}"
+#     srcs_bd_dir = f"{proj_base_path}/{project_name}.srcs/sources_1/bd/{bd_name}"
+
+#     return f"""
+# # Open the project
+# {'' if isWindows else f'open_project {project_path}'}
+
+# remove_files  {{{srcs_bd_dir}/imports/finn_sources/{sv_file} {gen_bd_dir}/hdl/{bd_name}_wrapper.v {srcs_bd_dir}/{bd_name}/{bd_name}.bd}}
+# file delete -force {{{srcs_bd_dir}/imports/finn_sources/{sv_file} {gen_bd_dir}/hdl/{bd_name}_wrapper.v {srcs_bd_dir}/{bd_name}}}
+# file delete -force {{{gen_bd_dir}}}
+
+# """

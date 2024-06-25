@@ -1,15 +1,17 @@
-import subprocess
-import sys
-import time
 import templates
 import os
+import util 
 
 # MUDE ESSES PARÂMETROS
 script_dir = os.getcwd()
-proj_base_path = "/home/artti/Desktop/chi2p/dependencies2/implementation/vivado_results/cv32e40p_project"
-project_name = "cv32e40p_project"
-bd_name = "finn_chiplet_b"
+isWindows = False
+script_dir = script_dir.replace("\\","/") # for Windows
+proj_base_path = "/home/artti/Desktop/finn_sources/projeto_teste"
+# for Windows: proj_base_path = r"C:/Users/Usuario/Desktop/Bolsa/teste" # com a barra assim mesmo -> / 
+project_name = "projeto_teste"
+bd_name = "finn_chiplet"
 finn_name = "t2w8_5000fps"
+fpga_board_name = "Nexys4"
 feeder_name = "feeder_21b"
 
 sv_file = ""
@@ -29,25 +31,21 @@ with open("script.tcl", "w") as file:
         bd_name=bd_name,
         sv_file=sv_file,
         finn_name=finn_name,
-        feeder_name=feeder_name
+        feeder_name=feeder_name,
+        fpga_board_name=fpga_board_name,
+        isWindows=isWindows,
+        id_width=2,
+        user_width=2
     ))
     print("Script TCL gerado com sucesso!")
 
 # Executa o comando Vivado no terminal
 print("Executando Vivado...")
 cmd = f"vivado -mode batch -source ./script.tcl"
-process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-# Indicador de progresso
-while process.poll() is None:
-    sys.stdout.write(".")
-    sys.stdout.flush()
-    time.sleep(1)
+process = util.execute_cmd(cmd)
 
 # Verifica o resultado
 if process.returncode == 0:
     print("\nScript TCL executado com sucesso!")
 else:
-    print("\nErro ao executar o script TCL no Vivado.")
-    print("Saída de erro:")
-    print(process.stderr.read().decode('utf-8'))
+    util.print_error(process)
