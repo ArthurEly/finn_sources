@@ -4,13 +4,13 @@ import util
 
 # MUDE ESSES PARÂMETROS
 script_dir = os.getcwd()
-isWindows = False
-script_dir = script_dir.replace("\\","/") # for Windows
+isWindows = True
+script_dir = script_dir.replace("\\","/") # para Windows
 
-project_name = "projeto_teste"
+project_name = "teste"
 bd_name = "finn_chiplet"
-finn_name = "t2w8_5000fps"
-fpga_board_name = "Nexys4"
+finn_name = "t2w8_5000fps" # igual o nome da pasta dentro dos IPs
+fpga_board_name = "PYNQ_Z2" # igual o nome da pasta dentro dos IPs
 feeder_name = "feeder_21b"
 
 if isWindows:
@@ -18,7 +18,7 @@ if isWindows:
 else:
     proj_base_path = "/home/artti/Desktop/finn_sources/projeto_teste"
 
-if (util.check_path(proj_base_path)):
+if (util.check_path(proj_base_path) and util.check_path(f"{proj_base_path}/{project_name}.xpr")):
 
     sv_file = ""
 
@@ -41,7 +41,8 @@ if (util.check_path(proj_base_path)):
             fpga_board_name=fpga_board_name,
             isWindows=isWindows,
             id_width=2,
-            user_width=2
+            user_width=2,
+            verilog_define="USE_FINN"
         ))
         print("Script TCL gerado com sucesso!")
 
@@ -59,3 +60,7 @@ if (util.check_path(proj_base_path)):
             print("\nScript TCL executado com sucesso!")
         else:
             util.print_error(process)
+else: 
+    print("Algum dos caminhos está errado")            
+    print(proj_base_path) 
+    print(f"{proj_base_path}/{project_name}")           

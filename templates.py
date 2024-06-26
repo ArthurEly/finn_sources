@@ -3,7 +3,7 @@ import util
 
 def generate_tcl_script(proj_base_path: str, project_name: str, bd_name: str, script_dir: str, 
                         sv_file : str, finn_name : str, feeder_name : str, fpga_board_name : str,
-                        isWindows : bool, id_width : int, user_width: int) -> str:
+                        isWindows : bool, id_width : int, user_width: int, verilog_define : str) -> str:
     # Define o conteúdo do script TCL
     project_path = f"{proj_base_path}/{project_name}.xpr"
     bd_file = f"{proj_base_path}/{project_name}.srcs/sources_1/bd/{bd_name}/{bd_name}.bd"
@@ -68,6 +68,9 @@ endgroup
 regenerate_bd_layout
 make_wrapper -files [get_files {bd_file}] -top
 add_files -norecurse {gen_bd_dir}/hdl/{bd_name}_wrapper.v
+
+set_property verilog_define {verilog_define} [current_fileset]
+set_property verilog_define {verilog_define} [get_filesets sim_1]
 """
 
     return tcl_script
