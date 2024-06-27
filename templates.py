@@ -17,7 +17,7 @@ def generate_tcl_script(proj_base_path: str, project_name: str, bd_name: str, sc
 
     tcl_script = f"""
 # Open the project
-{'' if isWindows else f'open_project {project_path}'}
+open_project {project_path}
 
 # Create block design
 create_bd_design "{bd_name}"
