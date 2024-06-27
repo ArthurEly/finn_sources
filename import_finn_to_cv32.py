@@ -76,14 +76,15 @@ def main() -> int:
         if process.returncode == 0:
             print("\nScript TCL executado com sucesso!")
         else:
-            util.print_error(process)
-            return 1
+            print("\nErro ao executar o script TCL no Vivado.")
+            print("Saída de erro:")
+            print(process)
+        return process.returncode
     else: 
         print("Algum dos caminhos está errado")            
         print(proj_base_path) 
         print(proj_base_path/f"{project_name}.xpr")        
-        return 1
-    return 0   
+        return 1 
 
 if __name__ == "__main__":
     sys.exit(main())
