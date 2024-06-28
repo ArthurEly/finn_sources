@@ -1,7 +1,4 @@
 import subprocess
-import sys
-import time
-import os
 import xml.etree.ElementTree as ET
 
 def extract_ip_vlnv(xml_file):
@@ -32,35 +29,13 @@ def extract_ip_vlnv(xml_file):
         print(f"Erro ao processar o arquivo XML: {str(e)}")
         return None
 
-def print_error(process : subprocess.Popen[bytes]):
-    print("\nErro ao executar o script TCL no Vivado.")
-    print("Saída de erro:")
-    try:
-        print(process.stderr.read().decode('utf-8'))
-    except Exception as e:
-        print(f"Erro ao mostrar o erro. ")
-        print(f"Isso pode estar relacionado ao S.O. -> Mude isWindows=True")
-        return None
 
-def execute_cmd(cmd : str) -> subprocess.Popen[bytes]:
-    process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    # Indicador de progresso
-    while process.poll() is None:
-        sys.stdout.write(".")
-        sys.stdout.flush()
-        time.sleep(1)
+def execute_cmd(cmd : str) -> subprocess.CompletedProcess[bytes] | subprocess.CalledProcessError:
+    try:
+        process = subprocess.run(cmd, shell=True, check=True)
+    except subprocess.CalledProcessError as e:
+        return e
     return process
-
-def check_path(path: str):   
-    try:
-        if not os.path.exists(path):
-            raise ValueError(f"O caminho não é válido: {path}")
-        print("O caminho é válido.")
-        return 1
-    except ValueError as e:
-        print(e)
-        return 0  
-    
 
 # Exemplo de uso
 
