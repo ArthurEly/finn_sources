@@ -6,3 +6,4 @@ __pycache__
 projeto_teste
 .Xil
 *.tcl
+/projeto_hls_teste
