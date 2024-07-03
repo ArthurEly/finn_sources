@@ -7,3 +7,5 @@ projeto_teste
 .Xil
 *.tcl
 /projeto_hls_teste
+/test_IPs
+/teste_hls

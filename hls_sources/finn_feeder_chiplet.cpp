@@ -1,4 +1,4 @@
-#include "finn_feeder.h"
+#include "finn_feeder_chiplet.h"
 
 void finn_feeder_chiplet(
     hls::stream<AXI_VALUE_pixel> &out_stream,

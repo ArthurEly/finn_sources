@@ -1,7 +1,7 @@
 // Based on Xilinx XAPP1170
 
-#ifndef __FINN_FEEDER_H__
-#define __FINN_FEEDER_H__
+#ifndef __FINN_FEEDER_CHIPLET_H__
+#define __FINN_FEEDER_CHIPLET_H__
 
 #include <cmath>
 #include <ap_axi_sdata.h>
@@ -40,4 +40,4 @@ void finn_feeder_chiplet(
     volatile bool* done_irq
 );
 
-#endif /* __FINN_FEEDER_H__ */
+#endif /* __FINN_FEEDER_CHIPLET_H__ */

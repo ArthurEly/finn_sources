@@ -1,4 +1,4 @@
-#include "finn_feeder.h"
+#include "finn_feeder_chiplet.h"
 #include <iostream>
 #include <hls_stream.h>
 
