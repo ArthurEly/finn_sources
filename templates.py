@@ -1,5 +1,9 @@
-from typing import Optional
+from typing import Optional, List
+import custom_types
 import util 
+from functools import reduce
+from operator import mul
+import math
 
 def generate_tcl_script(proj_base_path: str, project_name: str, bd_name: str, script_dir: str, 
                         sv_file : str, finn_name : str, feeder_name : str, fpga_board_name : str,
@@ -9,7 +13,7 @@ def generate_tcl_script(proj_base_path: str, project_name: str, bd_name: str, sc
     bd_file = f"{proj_base_path}/{project_name}.srcs/sources_1/bd/{bd_name}/{bd_name}.bd"
     gen_bd_dir = f"{proj_base_path}/{project_name}.gen/sources_1/bd/{bd_name}"
 
-    finn_ip_dir = f"{script_dir}/IPs/FINN_ips/{finn_name}/ip"
+    finn_ip_dir = util.get_finn_ip_path(script_dir=script_dir,finn_name=finn_name)
     feeder_ip_dir = f"{script_dir}/IPs/Feeder_ips/{feeder_name}/{fpga_board_name}/ip"
 
     finn_vlnv = util.extract_ip_vlnv(f"{finn_ip_dir}/component.xml")
@@ -74,7 +78,6 @@ set_property verilog_define {verilog_define} [get_filesets sim_1]
 """
 
     return tcl_script
-
 
 def generate_compatible_finn_sv(bd_name: str) -> str:
     compatible_finn_sv = f"""
@@ -183,20 +186,113 @@ endmodule
 """
     return compatible_finn_sv
 
-# def clean_script(proj_base_path: str, project_name: str, bd_name: str, script_dir: str, 
-#                 sv_file : str, finn_name : str, feeder_name : str, fpga_board_name : str,
-#                 isWindows : bool) -> str:
+def generate_feeder_main(cfg_json : custom_types.FeederConfig, finn_name: str, script_dir : str ) -> str:
 
-#     project_path = f"{proj_base_path}/{project_name}.xpr"
-#     gen_bd_dir = f"{proj_base_path}/{project_name}.gen/sources_1/bd/{bd_name}"
-#     srcs_bd_dir = f"{proj_base_path}/{project_name}.srcs/sources_1/bd/{bd_name}"
+    finn_ip_dir = util.get_finn_ip_path(script_dir=script_dir,finn_name=finn_name)
+    io_bits = util.extract_io_bits(finn_ip_dir + "/component.xml")
 
-#     return f"""
-# # Open the project
-# {'' if isWindows else f'open_project {project_path}'}
+    input_bits = io_bits['m_axis_0']
+    output_bits = io_bits['m_axis_0']
 
-# remove_files  {{{srcs_bd_dir}/imports/finn_sources/{sv_file} {gen_bd_dir}/hdl/{bd_name}_wrapper.v {srcs_bd_dir}/{bd_name}/{bd_name}.bd}}
-# file delete -force {{{srcs_bd_dir}/imports/finn_sources/{sv_file} {gen_bd_dir}/hdl/{bd_name}_wrapper.v {srcs_bd_dir}/{bd_name}}}
-# file delete -force {{{gen_bd_dir}}}
+    input_size = int(util.multiply_elements(cfg_json['input_shape']))
+    input_ptr_max_size = int(math.log(input_size,2))
+    print(input_ptr_max_size)
+    
+    n_batchs = int(cfg_json['memory_address_width'] / input_bits)
+    print(n_batchs)
 
-# """
+    return f"""#include "finn_feeder.h"
+
+{get_feeder_main_assignature(cfg_json=cfg_json)}
+{{
+
+    #pragma HLS INTERFACE axis port=out_stream
+    #pragma HLS INTERFACE axis port=in_stream
+    #pragma HLS INTERFACE s_axilite port=predicted_index
+    #pragma HLS INTERFACE s_axilite port=initial_address
+    #pragma HLS INTERFACE s_axilite port=image_size
+    #pragma HLS INTERFACE s_axilite port=num_images
+    #pragma HLS INTERFACE s_axilite port=return
+    #pragma HLS INTERFACE mode=m_axi port=ext_mem
+
+	uint{cfg_json['memory_address_width']}_t  img_idx;
+
+    for (img_idx = 0; img_idx < num_images; img_idx++) {{
+    	ap_int<{input_ptr_max_size}> p;
+        AXI_VALUE_pixel pixel;
+        AXI_VALUE_label label;
+        *done_irq = 0;
+
+        uint32_t address = (initial_address / {n_batchs}) + img_idx * (image_size / {n_batchs});
+
+        for(p = 0; p < image_size / {n_batchs}; p++) {{  // Read 32 bits (4 bytes) at a time
+        	#pragma HLS PIPELINE II={n_batchs}
+            uint{cfg_json['memory_data_width']}_t word = ext_mem[address + p];
+
+            // Extract each byte from the 32-bit word and write to the stream
+            for (ap_int<{int(math.log(n_batchs,2))}> i = 0; i < {n_batchs}; i++) {{
+                pixel.data = (word >> (i * {input_bits})) & 0x{'F' * int(input_bits / 4)};  // Extract byte
+                out_stream.write(pixel);
+            }}
+        }}
+
+        // Ler o rótulo do stream de entrada (leitura bloqueante)
+        in_stream.read(label);
+        *predicted_index = label.data;
+        *done_irq = 1;
+    }}
+}}
+"""
+
+def generate_feeder_main_header(cfg_json : custom_types.FeederConfig, finn_name: str, script_dir : str) -> str:
+    finn_ip_dir = util.get_finn_ip_path(script_dir=script_dir,finn_name=finn_name)
+    io_bits = util.extract_io_bits(finn_ip_dir + "/component.xml")
+
+    input_bits = io_bits['m_axis_0']
+    output_bits = io_bits['m_axis_0']
+    
+    return f"""
+// Based on Xilinx XAPP1170
+
+#ifndef __FINN_FEEDER_H__
+#define __FINN_FEEDER_H__
+
+#include <cmath>
+#include <ap_axi_sdata.h>
+#include <hls_stream.h>
+
+#define IMAGESET_IMAGE_HEIGHT         (32)
+#define IMAGESET_IMAGE_WIDTH          (32)
+#define IMAGESET_IMAGE_CHANNELS       (4)
+#define IMAGESET_IMAGE_CHANNEL_BYTES  (1)
+#define IMAGESET_CLASSES              (6)
+#define IMAGESET_CLASS_SAMPLES        (1)
+
+
+// Xilinx UG1399 AXI4-Stream Interfaces without Side-Channels
+typedef ap_axiu<{input_bits}, 0, 0, 0, 0> AXI_VALUE_pixel; // {input_bits} bits for pixel data
+typedef ap_axiu<{output_bits}, 0, 0, 0, 0> AXI_VALUE_label; // {output_bits} bits for label data
+
+{get_feeder_main_assignature(cfg_json=cfg_json)};
+
+#endif /* __FINN_FEEDER_H__ */
+"""
+
+def get_feeder_main_assignature(cfg_json : custom_types.FeederConfig) -> str:   
+    return f"""
+void finn_feeder_chiplet(
+    hls::stream<AXI_VALUE_pixel> &out_stream,
+    hls::stream<AXI_VALUE_label> &in_stream,
+    volatile uint{cfg_json['memory_data_width']}_t* predicted_index,
+    volatile uint{cfg_json['memory_data_width']}_t* ext_mem,
+    uint{cfg_json['memory_address_width']}_t initial_address,
+    uint{cfg_json['memory_address_width']}_t image_size,
+    uint{cfg_json['memory_address_width']}_t num_images,
+    volatile bool* done_irq
+)"""
+
+def generate_feeder_test(a:str) -> str:
+    return f"""
+
+
+"""

@@ -1,0 +1,6 @@
+{
+    "memory_data_width": 32,
+    "memory_address_width": 32,
+    "input_shape" : [1,32,32,4,8],
+    "output_shape" : [1,8]
+}
