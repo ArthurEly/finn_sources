@@ -56,57 +56,5 @@ def main() -> int:
         )
         print("ainnnn")
 
-    
-    # if (proj_base_path.exists() and (proj_base_path / f"{project_name}.xpr").exists()):
-
-    #     sv_file = ""
-
-    #     # Escreve o script TCL em um arquivo
-    #     with open(f"compatible_{bd_name}.sv", "w") as file:
-    #         file.write(templates.generate_compatible_finn_sv(bd_name))
-    #         sv_file = f"{script_dir}/{file.name}"
-    #         print("Wrapper do FINN Chiplet gerado com sucesso!")
-
-    #     # Escreve o script TCL em um arquivo
-    #     with open("script.tcl", "w") as file:
-    #         file.write(templates.generate_tcl_script(
-    #             proj_base_path=proj_base_path.absolute().as_posix(),
-    #             project_name=project_name,
-    #             script_dir=script_dir,
-    #             bd_name=bd_name,
-    #             sv_file=sv_file,
-    #             finn_name=finn_name,
-    #             feeder_name=feeder_name,
-    #             board_fpga_part=board_fpga_part,
-    #             isWindows=isWindows,
-    #             id_width=2,
-    #             user_width=2,
-    #             verilog_define="USE_FINN"
-    #         ))
-    #         print("Script TCL gerado com sucesso!")
-
-    #     # if isWindows:
-    #     #     print("Abra o script no Vivado")
-    #     #     print(f"Tools > Run Tcl Script... > {script_dir}/script.tcl")
-    #     # else:
-    #         # Executa o comando Vivado no terminal
-    #     print("Executando Vivado...")
-    #     cmd = f"vivado -mode batch -source ./script.tcl"
-    #     process = util.execute_cmd(cmd)
-
-    #     # Verifica o resultado
-    #     if process.returncode == 0:
-    #         print("\nScript TCL executado com sucesso!")
-    #     else:
-    #         print("\nErro ao executar o script TCL no Vivado.")
-    #         print("Saída de erro:")
-    #         print(process)
-    #     return process.returncode
-    # else: 
-    #     print("Algum dos caminhos está errado")            
-    #     print(proj_base_path) 
-    #     print(proj_base_path/f"{project_name}.xpr")        
-    #     return 1 
-
 if __name__ == "__main__":
     sys.exit(main())

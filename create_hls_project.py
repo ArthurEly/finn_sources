@@ -4,6 +4,7 @@ import sys
 import argparse
 import subprocess
 from pathlib import Path
+import util 
 
 def execute_cmd(cmd):
     result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -18,9 +19,15 @@ def main() -> int:
     fpga_part = "xc7z020clg400-1"
     parser.add_argument('-fp', '--fpga_part', type=str, help='Nome da placa FPGA', default=fpga_part)
     
+    finn_name = "t2w8_5000fps" # igual o nome da pasta dentro dos IPs
+    parser.add_argument('-f', '--finn', type=str, help='Nome do IP do FINN', default=finn_name)
+
     feeder_name = "finn_feeder_chiplet"
-    parser.add_argument('-f', '--feeder_name', type=str, help='Nome do feeder', default=feeder_name)
+    parser.add_argument('-fd', '--feeder_name', type=str, help='Nome do feeder', default=feeder_name)
     
+    config_json = "config.json" # igual o nome da pasta dentro dos IPs    
+    parser.add_argument('-j', '--json', type=str, help='Caminho para o JSON de configuração', default=config_json)
+
     clock_period = 10
     parser.add_argument('-cp', '--clock_period', type=int, help='Período do clock (ns)', default=clock_period)
     
@@ -36,6 +43,16 @@ def main() -> int:
     
     script_dir = Path(os.getcwd()).absolute().as_posix()
 
+    json = util.read_json_file("./feeder_config.json")
+
+    # Escreve o script TCL em um arquivo
+    with open(f"/home/artti/Desktop/finn_sources/hls_teste/feeder/finn_feeder_chiplet/finn_feeder_chiplet.cpp", "w") as file:
+        file.write(templates.generate_feeder_main(
+            cfg_json=json, 
+            finn_name=finn_name, 
+            script_dir=script_dir)
+        )
+
     # Escreve o script TCL em um arquivo
     tcl_script = templates.generate_hls_project_script(
         project_name=f"{project_name}",
@@ -46,7 +63,7 @@ def main() -> int:
         fpga_part=fpga_part,
         clock_period=clock_period,
         clock_uncertainty=clock_uncertainty,
-        output_path=f"{script_dir}/test_IPs"
+        output_path=f"{script_dir}/test_IPs/"
     )
 
     with open("hls_project_script.tcl", "w") as file:
