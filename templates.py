@@ -186,6 +186,76 @@ endmodule
 """
     return compatible_finn_sv
 
+def generate_hls_project_script(
+    project_name: str,
+    header_file: str,
+    feeder_file: str,
+    feeder_name: str,
+    testbench_file: str,
+    fpga_part: str,
+    clock_period: int,
+    clock_uncertainty: int,
+    output_path: str
+) -> str:
+    return f"""proc handleError {{code result step}} {{
+    if {{$code != 0}} {{
+        puts "Erro capturado no passo '$step': $result"
+        exit 1
+    }} else {{
+        puts "Passo '$step' concluído com sucesso."
+    }}
+}}
+
+# Abrir projeto
+set result [catch {{open_project {project_name}}} result]
+handleError $result $result "Abrir Projeto"
+
+# Adicionar arquivos
+set result [catch {{add_files {header_file}}} result]
+handleError $result $result "Adicionar o arquivo de cabeçalho .h"
+
+set result [catch {{add_files {feeder_file}}} result]
+handleError $result $result "Adicionar {feeder_name}.cpp"
+
+# Definir o topo
+set result [catch {{set_top {feeder_name}}} result]
+handleError $result $result "Definir Topo"
+
+# Adicionar arquivos de teste
+set result [catch {{add_files -tb {testbench_file} -cflags "-Wno-unknown-pragmas" -csimflags "-Wno-unknown-pragmas"}} result]
+handleError $result $result "Adicionar Arquivos de Teste"
+
+# Abrir solução
+set result [catch {{open_solution "solution1" -flow_target vitis}} result]
+handleError $result $result "Abrir Solução"
+
+# Definir partição
+set result [catch {{set_part {{{fpga_part}}}}} result]
+handleError $result $result "Definir Partição"
+
+# Criar clock
+set result [catch {{create_clock -period {clock_period} -name default}} result]
+handleError $result $result "Criar Clock"
+
+# Definir incerteza do clock
+set result [catch {{set_clock_uncertainty {clock_uncertainty}}} result]
+handleError $result $result "Definir Incerteza do Clock"
+
+# Simulação de comportamento (CSim)
+set result [catch {{csim_design}} result]
+handleError $result $result "Simulação de Comportamento"
+
+# Síntese (CSynth)
+set result [catch {{csynth_design}} result]
+handleError $result $result "Síntese"
+
+# Exportar design
+set result [catch {{export_design -format ip_catalog -output {output_path}}} result]
+handleError $result $result "Exportar Design"
+
+exit
+"""     
+
 def generate_feeder_main(cfg_json : custom_types.FeederConfig, finn_name: str, script_dir : str ) -> str:
 
     finn_ip_dir = util.get_finn_ip_path(script_dir=script_dir,finn_name=finn_name)
