@@ -45,7 +45,11 @@ def main() -> int:
 
     json = util.read_json_file("./feeder_config.json")
 
-    # Escreve o script TCL em um arquivo
+    # Escreve as funções main do HLS 
+    #TODO:
+        #criar header.h
+        #criar main.cpp
+        #criar teste.cpp
     with open(f"/home/artti/Desktop/finn_sources/hls_teste/feeder/finn_feeder_chiplet/finn_feeder_chiplet.cpp", "w") as file:
         file.write(templates.generate_feeder_main(
             cfg_json=json, 
