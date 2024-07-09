@@ -50,8 +50,15 @@ def main() -> int:
         #criar header.h
         #criar main.cpp
         #criar teste.cpp
-    with open(f"/home/artti/Desktop/finn_sources/hls_teste/feeder/finn_feeder_chiplet/finn_feeder_chiplet.cpp", "w") as file:
+    with open(f"/home/artti/Desktop/finn_sources/hls_sources/finn_feeder_chiplet.cpp", "w") as file:
         file.write(templates.generate_feeder_main(
+            cfg_json=json, 
+            finn_name=finn_name, 
+            script_dir=script_dir)
+        )
+
+    with open(f"/home/artti/Desktop/finn_sources/hls_sources/finn_feeder_chiplet.h", "w") as file:
+        file.write(templates.generate_feeder_main_header(
             cfg_json=json, 
             finn_name=finn_name, 
             script_dir=script_dir)

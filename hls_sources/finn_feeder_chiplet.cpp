@@ -1,5 +1,6 @@
 #include "finn_feeder_chiplet.h"
 
+
 void finn_feeder_chiplet(
     hls::stream<AXI_VALUE_pixel> &out_stream,
     hls::stream<AXI_VALUE_label> &in_stream,
@@ -9,7 +10,8 @@ void finn_feeder_chiplet(
     uint32_t image_size,
     uint32_t num_images,
     volatile bool* done_irq
-) {
+)
+{
 
     #pragma HLS INTERFACE axis port=out_stream
     #pragma HLS INTERFACE axis port=in_stream
@@ -23,19 +25,19 @@ void finn_feeder_chiplet(
 	uint32_t  img_idx;
 
     for (img_idx = 0; img_idx < num_images; img_idx++) {
-    	ap_int<16> p; //mudar isso se image_size definida for muito grande
+    	ap_int<15> p;
         AXI_VALUE_pixel pixel;
         AXI_VALUE_label label;
         *done_irq = 0;
 
-        uint32_t address = (initial_address >> 2) + img_idx * (image_size >> 2);
+        uint32_t address = (initial_address / 4) + img_idx * (image_size / 4);
 
         for(p = 0; p < image_size / 4; p++) {  // Read 32 bits (4 bytes) at a time
         	#pragma HLS PIPELINE II=4
             uint32_t word = ext_mem[address + p];
 
             // Extract each byte from the 32-bit word and write to the stream
-            for (ap_int<4> i = 0; i < 4; i++) {
+            for (ap_int<2> i = 0; i < 4; i++) {
                 pixel.data = (word >> (i * 8)) & 0xFF;  // Extract byte
                 out_stream.write(pixel);
             }

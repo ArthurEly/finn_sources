@@ -201,7 +201,7 @@ def generate_feeder_main(cfg_json : custom_types.FeederConfig, finn_name: str, s
     n_batchs = int(cfg_json['memory_address_width'] / input_bits)
     print(n_batchs)
 
-    return f"""#include "finn_feeder.h"
+    return f"""#include "finn_feeder_chiplet.h"
 
 {get_feeder_main_assignature(cfg_json=cfg_json)}
 {{
@@ -283,7 +283,7 @@ def get_feeder_main_assignature(cfg_json : custom_types.FeederConfig) -> str:
 void finn_feeder_chiplet(
     hls::stream<AXI_VALUE_pixel> &out_stream,
     hls::stream<AXI_VALUE_label> &in_stream,
-    volatile uint{cfg_json['memory_data_width']}_t* predicted_index,
+    volatile uint{cfg_json['output_shape'][-1]}_t* predicted_index,
     volatile uint{cfg_json['memory_data_width']}_t* ext_mem,
     uint{cfg_json['memory_address_width']}_t initial_address,
     uint{cfg_json['memory_address_width']}_t image_size,
