@@ -8,5 +8,5 @@ projeto_teste
 *.tcl
 hls_teste
 /projeto_hls_teste
-/test_IPs
+/test_IPs/export
 /teste_hls

@@ -1,0 +1,23 @@
+<AutoPilot:solution xmlns:AutoPilot="com.autoesl.autopilot.solution">
+    <config>
+        <config_interface m_axi_latency="64" m_axi_alignment_byte_size="64" m_axi_max_widen_bitwidth="512" default_interface="kernel"/>
+        <config_rtl register_reset_num="3"/>
+    </config>
+    <name>
+        <value string="solution1"/>
+    </name>
+    <project>
+        <value string="teste_hls"/>
+    </project>
+    <flowTarget value="vitis"/>
+    <targetInfo>
+        <TargetInfo value="xc7z020:-clg400:-1"/>
+    </targetInfo>
+    <libraryList>
+        <library value="xilinx/zynq/zynq" name="DefaultPlatform"/>
+    </libraryList>
+    <clockList>
+        <clock default="false" name="default" uncertainty="0.5" period="10"/>
+    </clockList>
+</AutoPilot:solution>
+

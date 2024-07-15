@@ -1,0 +1,42 @@
+<xilinx:hls_fe_msgs>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/artti/Desktop/finn_sources/teste_hls/solution1/csynth.tcl:19:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaContext="directive" ARG_PragmaFunction="finn_feeder_chiplet" ARG_PragmaIsValid="1" ARG_PragmaOptions="name=finn_feeder_chiplet" ARG_PragmaType="top" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="hls_sources/finn_feeder_chiplet.cpp:15:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="finn_feeder_chiplet" ARG_PragmaIsValid="1" ARG_PragmaOptions="axis port=out_stream" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="hls_sources/finn_feeder_chiplet.cpp:16:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="finn_feeder_chiplet" ARG_PragmaIsValid="1" ARG_PragmaOptions="axis port=in_stream" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="hls_sources/finn_feeder_chiplet.cpp:17:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="finn_feeder_chiplet" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port=predicted_index" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="hls_sources/finn_feeder_chiplet.cpp:18:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="finn_feeder_chiplet" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port=initial_address" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="hls_sources/finn_feeder_chiplet.cpp:19:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="finn_feeder_chiplet" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port=image_size" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="hls_sources/finn_feeder_chiplet.cpp:20:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="finn_feeder_chiplet" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port=num_images" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="hls_sources/finn_feeder_chiplet.cpp:21:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="finn_feeder_chiplet" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port=return" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="hls_sources/finn_feeder_chiplet.cpp:22:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="finn_feeder_chiplet" ARG_PragmaIsValid="1" ARG_PragmaOptions="mode=m_axi port=ext_mem" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="hls_sources/finn_feeder_chiplet.cpp:35:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="finn_feeder_chiplet" ARG_PragmaIsValid="1" ARG_PragmaOptions="II=4" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_INTERFACE" msg_id="214-386" msg_severity="WARNING" msg_loc="hls_sources/finn_feeder_chiplet.cpp:14:0" msg_body="A depth specification is required for MAXI interface port 'ext_mem' for cosimulation.">
+        <args Name="ext_mem"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-291" msg_severity="INFO" msg_loc="hls_sources/finn_feeder_chiplet.cpp:39:30" msg_body="Loop 'VITIS_LOOP_39_3' is marked as complete unroll implied by the pipeline pragma">
+        <args LoopName="VITIS_LOOP_39_3"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-186" msg_severity="INFO" msg_loc="hls_sources/finn_feeder_chiplet.cpp:14:0" msg_body="Unrolling loop 'VITIS_LOOP_39_3' (hls_sources/finn_feeder_chiplet.cpp:39:30) in function 'finn_feeder_chiplet' completely with a factor of 4">
+        <args Factor="4" LoopLoc="hls_sources/finn_feeder_chiplet.cpp:39:30" LoopName="VITIS_LOOP_39_3"/>
+    </msg>
+</xilinx:hls_fe_msgs>
+
