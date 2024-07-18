@@ -1,0 +1,19 @@
+{
+  "0": {
+    "basicblocks": 7,
+    "calls": "",
+    "file": "finn_feeder_chiplet.cpp",
+    "fileloc": 3,
+    "instructions": 49,
+    "loads": {
+      "L": 1,
+      "T": 1
+    },
+    "name": "finn_feeder_chiplet",
+    "stores": {
+      "L": 1,
+      "T": 3
+    },
+    "total_instructions": 49
+  }
+}
