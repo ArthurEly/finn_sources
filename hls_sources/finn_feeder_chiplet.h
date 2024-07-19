@@ -20,7 +20,7 @@ void finn_feeder_chiplet(
     hls::stream<AXI_VALUE_pixel> &out_stream,
     hls::stream<AXI_VALUE_label> &in_stream,
     volatile uint8_t* predicted_index,
-    volatile ap_int<40>* ext_mem,
+    volatile uint32_t* ext_mem,
     uint32_t initial_address,
     uint32_t image_size,
     uint32_t num_images,

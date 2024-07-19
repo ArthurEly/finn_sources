@@ -1,4 +1,5 @@
 #include "finn_feeder_chiplet.h"
+#include <iostream>
 
 void finn_feeder_chiplet(
     hls::stream<AXI_VALUE_pixel> &out_stream,
@@ -28,10 +29,11 @@ void finn_feeder_chiplet(
         *done_irq = 0;
 
             //mdc
-        ap_int<8> input_buffer[5]; //input/mdc
+        ap_int<8> input_buffer[5] = {0, 0, 0, 0, 0}; // input/mdc
+        const int input_buffer_size = 5;
 
         int write_ibuff_pointer = 0;
-        int valid_bytes = 4; //largura da memória
+        int valid_bytes = 32/8; //largura da memória
 
         int next_write_ibuff_pointer = valid_bytes;
         int next_valid_bytes = 0; //aplicar uma função pra descobrir
@@ -40,16 +42,40 @@ void finn_feeder_chiplet(
 
         uint32_t address = (initial_address / 4) + img_idx * (image_size / 4);
 
-        for(uint32_t p = 0; p < (image_size / 4); p++) {
-//            #pragma HLS PIPELINE II=1
-        	//se o valid_
+        uint32_t back_offset = 0;
+        for(uint32_t p = 0; p < (image_size / 4);) {
+        	std::cout << "p: " << p << std::endl;
+        	std::cout << "vb_n: " << valid_bytes << std::endl;
+        	std::cout << "wpi_n: " << write_ibuff_pointer << std::endl;
         	if (valid_bytes == max_valid_bytes){
-				#pragma HLS PIPELINE II=1
-        		for (int i = 0; i < max_valid_bytes; i++)
+        		finn_feeder_chiplet_label1:for (int i = write_ibuff_pointer; i < max_valid_bytes; i++){
+        			input_buffer[i] = (ext_mem[address + p] >> (i * 8)) && 0xFF;
+        		}
+        	    for (int i = 0; i < 5; ++i) {
+        	        std::cout << "input_buffer[" << i << "] = " << input_buffer[i] << std::endl;
+        	    }
+        		write_ibuff_pointer += valid_bytes;
+        		p++;
+        	} else {
+        		std::cout << "vou escrever no input" << std::endl;
+        		back_offset = 0;
+        		finn_feeder_chiplet_label2:for (int i = write_ibuff_pointer; i < input_buffer_size; i++){
+        			std::cout << "input_buffer[" << i << "] = " << input_buffer[i] << std::endl;
+        			input_buffer[i] = (ext_mem[address + p] >> (i * 8)) && 0xFF;
+        			back_offset++;
+        		}
+        		std::cout << "bckoff" << back_offset << std::endl;
+        		p = p - back_offset;
+				std::cout << "p: " << p << std::endl;
+				write_ibuff_pointer = 0;
+				pixel.data = input_buffer;
+				out_stream.write(pixel);
         	}
 
-            pixel.data = ext_mem[address + p];
-            out_stream.write(pixel);
+        	int next_valid_bytes = (40/8) - write_ibuff_pointer;
+        	valid_bytes =  next_valid_bytes > max_valid_bytes ? max_valid_bytes : next_valid_bytes; //aplicar uma função pra descobrir o próximo
+        	std::cout << "vb_n+1: " << valid_bytes << std::endl;
+			std::cout << "wpi_n+1: " << write_ibuff_pointer << std::endl;
         }
 
         // Ler o rótulo do stream de entrada (leitura bloqueante)
