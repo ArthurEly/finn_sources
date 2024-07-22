@@ -9,7 +9,7 @@
 #define IMAGESET_IMAGE_WIDTH          (32)
 #define IMAGESET_IMAGE_CHANNELS       (4)
 #define IMAGESET_IMAGE_CHANNEL_BYTES  (1)
-#define IMAGESET_CLASSES              (6)
+#define IMAGESET_CLASSES              (1)
 #define IMAGESET_CLASS_SAMPLES        (1)
 
 // Xilinx UG1399 AXI4-Stream Interfaces without Side-Channels

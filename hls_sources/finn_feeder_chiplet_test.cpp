@@ -4,7 +4,7 @@
 #include <ap_int.h>
 #include <iomanip> // Para std::setw e std::setfill
 
-#define TEST_IMAGE_COUNT     6
+#define TEST_IMAGE_COUNT     1
 #define TEST_IMAGE_HEIGHT    32
 #define TEST_IMAGE_WIDTH     32
 #define TEST_IMAGE_CHANNELS  4

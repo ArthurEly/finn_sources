@@ -40,31 +40,35 @@ void finn_feeder_chiplet(
 
         const int max_valid_bytes = 32/8; //mem/mdc
 
-        uint32_t address = (initial_address / 4) + img_idx * (image_size / 4);
+        uint32_t address = initial_address + img_idx * image_size;
 
         uint32_t back_offset = 0;
-        for(uint32_t p = 0; p < (image_size / 4);) {
+        uint32_t p = 0;
+        while(p < image_size) {
         	std::cout << "p: " << p << std::endl;
         	std::cout << "vb_n: " << valid_bytes << std::endl;
         	std::cout << "wpi_n: " << write_ibuff_pointer << std::endl;
         	if (valid_bytes == max_valid_bytes){
         		finn_feeder_chiplet_label1:for (int i = write_ibuff_pointer; i < max_valid_bytes; i++){
-        			input_buffer[i] = (ext_mem[address + p] >> (i * 8)) && 0xFF;
+        			input_buffer[i] = ((ext_mem[address + p] >> (i * 8)) & 0xFF);
+        			std::cout << std::hex << ext_mem[address + p] << std::endl;
+        			std::cout << std::hex << (ext_mem[address + p] >> (i * 8)) << std::endl;
+        			std::cout << std::hex << (0xFF & (ext_mem[address + p] >> (i * 8)) ) << std::endl;
         		}
         	    for (int i = 0; i < 5; ++i) {
         	        std::cout << "input_buffer[" << i << "] = " << input_buffer[i] << std::endl;
+        	        p++;
         	    }
         		write_ibuff_pointer += valid_bytes;
-        		p++;
         	} else {
         		std::cout << "vou escrever no input" << std::endl;
         		back_offset = 0;
         		finn_feeder_chiplet_label2:for (int i = write_ibuff_pointer; i < input_buffer_size; i++){
+        			input_buffer[i] = (ext_mem[address + p] >> (i * 8)) & 0xFF;
         			std::cout << "input_buffer[" << i << "] = " << input_buffer[i] << std::endl;
-        			input_buffer[i] = (ext_mem[address + p] >> (i * 8)) && 0xFF;
         			back_offset++;
         		}
-        		std::cout << "bckoff" << back_offset << std::endl;
+        		std::cout << "bckoff: " << back_offset << std::endl;
         		p = p - back_offset;
 				std::cout << "p: " << p << std::endl;
 				write_ibuff_pointer = 0;
