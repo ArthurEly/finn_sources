@@ -5,8 +5,8 @@
 #include <iomanip> // Para std::setw e std::setfill
 
 #define TEST_IMAGE_COUNT     1
-#define TEST_IMAGE_HEIGHT    32
-#define TEST_IMAGE_WIDTH     32
+#define TEST_IMAGE_HEIGHT    10
+#define TEST_IMAGE_WIDTH     103
 #define TEST_IMAGE_CHANNELS  4
 #define TEST_IMAGE_SIZE      (TEST_IMAGE_HEIGHT * TEST_IMAGE_WIDTH * TEST_IMAGE_CHANNELS / 8)
 #define TEST_MEMORY_SIZE     (TEST_IMAGE_COUNT * TEST_IMAGE_SIZE)
@@ -17,6 +17,29 @@ void initialize_memory(volatile uint32_t* ext_mem, uint32_t num_images, uint32_t
             ext_mem[img * (image_size) + i] = (0x11223344 * (img + 1));
         }
     }
+}
+
+// Função para deslocar à direita e mover o último byte para o início
+ap_uint<40> shift_right_and_move_last_byte(ap_uint<40> value, unsigned int shift, unsigned int width) {
+    // Desloca o valor para a direita
+    ap_uint<40> shifted_value = value >> shift;
+
+    // Obtém o último byte do valor deslocado
+    ap_uint<8> last_byte = shifted_value & 0xFF;
+
+    // Obtém a parte restante do valor deslocado sem o último byte
+    ap_uint<32> remaining_value = shifted_value >> 8;
+
+    // Cria o resultado final colocando o último byte no início
+    ap_uint<40> result = (last_byte << (width - 8)) | remaining_value;
+
+    // Impressão para depuração
+    std::cout << "Valor original: " << std::hex << value << std::endl;
+    std::cout << "Valor deslocado: " << std::hex << shifted_value << std::endl;
+    std::cout << "Último byte após deslocamento: " << std::hex << (int)last_byte << std::endl;
+    std::cout << "Resultado final: " << std::hex << result << std::endl;
+
+    return result;
 }
 
 int main() {
@@ -44,22 +67,10 @@ int main() {
     // Call the DUT
     finn_feeder_chiplet(out_stream, in_stream, &predicted_index, ext_mem, initial_address, image_size, num_images, &done_irq);
 
-    // Print the contents of the first 20 40-bit values
-//    std::cout << "Initial memory contents (40-bit values):" << std::endl;
-//    for (uint32_t i = 0; i < 20; i++) {
-//        uint64_t value_40bits = 0;
-//        // Combine two 32-bit values to form a 40-bit value
-//        if (i * 2 + 1 < TEST_MEMORY_SIZE) {
-//            value_40bits = (static_cast<uint64_t>(ext_mem[i * 2]) << 32) | ext_mem[i * 2 + 1];
-//            // Mask to ensure we only get the lower 40 bits
-//            value_40bits &= 0xFFFFFFFFFF;
-//            std::cout << "ext_mem[" << i * 2 << "] and ext_mem[" << (i * 2 + 1) << "] = "
-//                      << std::hex << std::setw(10) << std::setfill('0') << value_40bits << std::endl;
-//        }
-//    }
-
     // Check the output stream
     bool success = true;
+    int base_data = 0x4411223344;
+
     for (uint32_t img_idx = 0; img_idx < num_images; ++img_idx) {
         for (uint32_t p = 0; p < image_size; p += 5) {
             if (out_stream.empty()) {
@@ -68,7 +79,12 @@ int main() {
                 break;
             }
             AXI_VALUE_pixel pixel = out_stream.read();
+//            std::cout << std::hex << (ap_int<40>)pixel.data << std::endl;
+            ap_uint<40> base_data = 0x4411223344;
+//            std::cout << base_data << std::endl;
             ap_uint<40> expected_value = (0x4411223344 * (img_idx + 1));
+            base_data = shift_right_and_move_last_byte(base_data,8,40);
+//            std::cout << std::hex << base_data << std::endl;
 
             if (pixel.data != expected_value) {
                 std::cout << "Erro: pixel[" << img_idx << "][" << p / 5 << "] = "

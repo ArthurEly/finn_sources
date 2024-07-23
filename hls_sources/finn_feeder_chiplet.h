@@ -5,15 +5,12 @@
 #include <ap_axi_sdata.h>
 #include <hls_stream.h>
 
-#define IMAGESET_IMAGE_HEIGHT         (32)
-#define IMAGESET_IMAGE_WIDTH          (32)
-#define IMAGESET_IMAGE_CHANNELS       (4)
-#define IMAGESET_IMAGE_CHANNEL_BYTES  (1)
-#define IMAGESET_CLASSES              (1)
-#define IMAGESET_CLASS_SAMPLES        (1)
+#define MEM_DATA_WIDTH 32
+#define INPUT_WIDTH 40
+#define MEM_INPUT_GDC 8
 
 // Xilinx UG1399 AXI4-Stream Interfaces without Side-Channels
-typedef ap_axiu<40, 0, 0, 0, 0> AXI_VALUE_pixel; // 40 bits for pixel data
+typedef ap_axiu<INPUT_WIDTH, 0, 0, 0, 0> AXI_VALUE_pixel; // 40 bits for pixel data
 typedef ap_axiu<8, 0, 0, 0, 0> AXI_VALUE_label; // 8 bits for label data
 
 void finn_feeder_chiplet(
