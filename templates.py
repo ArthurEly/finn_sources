@@ -196,10 +196,8 @@ def generate_feeder_main(cfg_json : custom_types.FeederConfig, finn_name: str, s
 
     input_size = int(util.multiply_elements(cfg_json['input_shape']))
     input_ptr_max_size = int(math.log(input_size,2))
-    print(input_ptr_max_size)
     
     n_batchs = int(cfg_json['memory_address_width'] / input_bits)
-    print(n_batchs)
 
     return f"""#include "finn_feeder_chiplet.h"
 

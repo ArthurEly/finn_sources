@@ -5,6 +5,7 @@ import argparse
 import subprocess
 from pathlib import Path
 import util 
+import zipfile
 
 def execute_cmd(cmd):
     result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -46,20 +47,21 @@ def main() -> int:
 
     # Escreve as funções main do HLS 
     #TODO:
-        #criar header.h
         #criar main.cpp
         #criar teste.cpp
-    with open(f"/home/artti/Desktop/finn_sources/hls_sources/finn_feeder_chiplet.cpp", "w") as file:
+    with open(f"{script_dir}/hls_sources/{feeder_name}.cpp", "w") as file:
         file.write(templates.generate_feeder_main(
             cfg_json=json, 
             finn_name=finn_name, 
+            feeder_name=feeder_name,
             script_dir=script_dir)
         )
 
-    with open(f"/home/artti/Desktop/finn_sources/hls_sources/finn_feeder_chiplet.h", "w") as file:
+    with open(f"{script_dir}/hls_sources/{feeder_name}.h", "w") as file:
         file.write(templates.generate_feeder_main_header(
             cfg_json=json, 
             finn_name=finn_name, 
+            feeder_name=feeder_name,
             script_dir=script_dir)
         )
 
@@ -91,6 +93,9 @@ def main() -> int:
     # Verifica o resultado
     if process.returncode == 0:
         print("\nScript TCL executado com sucesso!")
+        with zipfile.ZipFile(f'{script_dir}/test_IPs/export.zip', 'r') as zip:
+            # Extraia todos os arquivos do arquivo ZIP para um diretório específico
+            zip.extractall(f'{script_dir}/test_IPs/{fpga_part.replace("-","_")}/{feeder_name}/')
     else:
         print("\nErro ao executar o script TCL no Vitis HLS.")
         print("Saída de erro:")

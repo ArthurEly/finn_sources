@@ -82,6 +82,7 @@ void finn_feeder_chiplet(
 			std::cout << "wpi_n+1: " << write_ibuff_pointer << std::endl;
         }
 
+
         // Ler o rótulo do stream de entrada (leitura bloqueante)
         in_stream.read(label);
         *predicted_index = label.data;
