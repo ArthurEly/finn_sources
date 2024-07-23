@@ -186,7 +186,7 @@ endmodule
 """
     return compatible_finn_sv
 
-def generate_feeder_main(cfg_json : custom_types.FeederConfig, finn_name: str, script_dir : str ) -> str:
+def generate_feeder_main(cfg_json : custom_types.FeederConfig, finn_name: str, script_dir : str, feeder_name : str ) -> str:
 
     finn_ip_dir = util.get_finn_ip_path(script_dir=script_dir,finn_name=finn_name)
     io_bits = util.extract_io_bits(finn_ip_dir + "/component.xml")
@@ -203,7 +203,7 @@ def generate_feeder_main(cfg_json : custom_types.FeederConfig, finn_name: str, s
 
     return f"""#include "finn_feeder_chiplet.h"
 
-{get_feeder_main_assignature(cfg_json=cfg_json)}
+{get_feeder_main_assignature(cfg_json=cfg_json, feeder_name=feeder_name)}
 {{
 
     #pragma HLS INTERFACE axis port=out_stream
@@ -223,18 +223,7 @@ def generate_feeder_main(cfg_json : custom_types.FeederConfig, finn_name: str, s
         AXI_VALUE_label label;
         *done_irq = 0;
 
-        uint32_t address = (initial_address / {n_batchs}) + img_idx * (image_size / {n_batchs});
-
-        for(p = 0; p < image_size / {n_batchs}; p++) {{  // Read 32 bits (4 bytes) at a time
-        	#pragma HLS PIPELINE II={n_batchs}
-            uint{cfg_json['memory_data_width']}_t word = ext_mem[address + p];
-
-            // Extract each byte from the 32-bit word and write to the stream
-            for (ap_int<{int(math.log(n_batchs,2))}> i = 0; i < {n_batchs}; i++) {{
-                pixel.data = (word >> (i * {input_bits})) & 0x{'F' * int(input_bits / 4)};  // Extract byte
-                out_stream.write(pixel);
-            }}
-        }}
+        {generate_bytes_sender (n_batchs=n_batchs, input_bits=input_bits, cfg_json=cfg_json)}
 
         // Ler o rótulo do stream de entrada (leitura bloqueante)
         in_stream.read(label);
@@ -244,7 +233,24 @@ def generate_feeder_main(cfg_json : custom_types.FeederConfig, finn_name: str, s
 }}
 """
 
-def generate_feeder_main_header(cfg_json : custom_types.FeederConfig, finn_name: str, script_dir : str) -> str:
+def generate_bytes_sender (n_batchs : int, input_bits : int, cfg_json : custom_types.FeederConfig) -> str:
+    return f"""
+        uint32_t address = (initial_address / {n_batchs}) + img_idx * (image_size / {n_batchs});
+
+        for(p = 0; p < image_size / {n_batchs}; p++) {{  // Read 32 bits (4 bytes) at a time
+        	#pragma HLS PIPELINE II={n_batchs}
+            uint{cfg_json['memory_data_width']}_t word = ext_mem[address + p];
+
+            ap_int<{int(math.log(n_batchs,2)*2)}> pkts = {n_batchs};
+            // Extract each byte from the 32-bit word and write to the stream
+            for (ap_int<{int(math.log(n_batchs,2)*2)}> i = 0; i < pkts; i++) {{
+                pixel.data = (word >> (i * {input_bits})) & 0x{'F' * int(input_bits / 4)};  // Extract byte
+                out_stream.write(pixel);
+            }}
+        }}
+"""
+
+def generate_feeder_main_header(cfg_json : custom_types.FeederConfig, finn_name: str, script_dir : str,  feeder_name : str) -> str:
     finn_ip_dir = util.get_finn_ip_path(script_dir=script_dir,finn_name=finn_name)
     io_bits = util.extract_io_bits(finn_ip_dir + "/component.xml")
 
@@ -273,14 +279,14 @@ def generate_feeder_main_header(cfg_json : custom_types.FeederConfig, finn_name:
 typedef ap_axiu<{input_bits}, 0, 0, 0, 0> AXI_VALUE_pixel; // {input_bits} bits for pixel data
 typedef ap_axiu<{output_bits}, 0, 0, 0, 0> AXI_VALUE_label; // {output_bits} bits for label data
 
-{get_feeder_main_assignature(cfg_json=cfg_json)};
+{get_feeder_main_assignature(cfg_json=cfg_json, feeder_name=feeder_name)};
 
 #endif /* __FINN_FEEDER_H__ */
 """
 
-def get_feeder_main_assignature(cfg_json : custom_types.FeederConfig) -> str:   
+def get_feeder_main_assignature(cfg_json : custom_types.FeederConfig, feeder_name : str) -> str:   
     return f"""
-void finn_feeder_chiplet(
+void {feeder_name}(
     hls::stream<AXI_VALUE_pixel> &out_stream,
     hls::stream<AXI_VALUE_label> &in_stream,
     volatile uint{cfg_json['output_shape'][-1]}_t* predicted_index,
