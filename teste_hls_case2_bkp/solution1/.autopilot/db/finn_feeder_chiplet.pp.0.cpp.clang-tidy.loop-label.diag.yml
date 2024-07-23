@@ -1,0 +1,76 @@
+---
+MainSourceFile:  /home/artti/Desktop/finn_sources/teste_hls/solution1/.autopilot/db/finn_feeder_chiplet.pp.0.cpp
+Diagnostics:     
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_1207_1:  '
+    FileOffset:      1207
+    FilePath:        /media/artti/Dados/Vitis_HLS/2023.2/common/technology/autopilot/etc/ap_int_base.h
+    Replacements:    
+      - FilePath:        /home/artti/Desktop/finn_sources/teste_hls/solution1/.autopilot/db/finn_feeder_chiplet.pp.0.cpp
+        Offset:          245261
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_1207_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_676_1:  '
+    FileOffset:      676
+    FilePath:        /media/artti/Dados/Vitis_HLS/2023.2/common/technology/autopilot/etc/ap_int_ref.h
+    Replacements:    
+      - FilePath:        /home/artti/Desktop/finn_sources/teste_hls/solution1/.autopilot/db/finn_feeder_chiplet.pp.0.cpp
+        Offset:          472809
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_676_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_690_1:  '
+    FileOffset:      690
+    FilePath:        /media/artti/Dados/Vitis_HLS/2023.2/common/technology/autopilot/etc/ap_int_ref.h
+    Replacements:    
+      - FilePath:        /home/artti/Desktop/finn_sources/teste_hls/solution1/.autopilot/db/finn_feeder_chiplet.pp.0.cpp
+        Offset:          473273
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_690_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_704_1:  '
+    FileOffset:      704
+    FilePath:        /media/artti/Dados/Vitis_HLS/2023.2/common/technology/autopilot/etc/ap_int_ref.h
+    Replacements:    
+      - FilePath:        /home/artti/Desktop/finn_sources/teste_hls/solution1/.autopilot/db/finn_feeder_chiplet.pp.0.cpp
+        Offset:          473738
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_704_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_1247_1:  '
+    FileOffset:      1247
+    FilePath:        /media/artti/Dados/Vitis_HLS/2023.2/common/technology/autopilot/etc/ap_fixed_base.h
+    Replacements:    
+      - FilePath:        /home/artti/Desktop/finn_sources/teste_hls/solution1/.autopilot/db/finn_feeder_chiplet.pp.0.cpp
+        Offset:          757300
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_1247_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_26_1:  '
+    FileOffset:      26
+    FilePath:        /home/artti/Desktop/finn_sources/hls_sources/finn_feeder_chiplet.cpp
+    Replacements:    
+      - FilePath:        /home/artti/Desktop/finn_sources/teste_hls/solution1/.autopilot/db/finn_feeder_chiplet.pp.0.cpp
+        Offset:          1213375
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_26_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_34_2:  '
+    FileOffset:      34
+    FilePath:        /home/artti/Desktop/finn_sources/hls_sources/finn_feeder_chiplet.cpp
+    Replacements:    
+      - FilePath:        /home/artti/Desktop/finn_sources/teste_hls/solution1/.autopilot/db/finn_feeder_chiplet.pp.0.cpp
+        Offset:          1213624
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_34_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_39_3:  '
+    FileOffset:      39
+    FilePath:        /home/artti/Desktop/finn_sources/hls_sources/finn_feeder_chiplet.cpp
+    Replacements:    
+      - FilePath:        /home/artti/Desktop/finn_sources/teste_hls/solution1/.autopilot/db/finn_feeder_chiplet.pp.0.cpp
+        Offset:          1213730
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_39_3: '
+...

@@ -1,0 +1,38 @@
+{
+    "1": {
+        "name": "finn_feeder_chiplet_Pipeline_VITIS_LOOP_32_2",
+        "file": "hls_sources\/finn_feeder_chiplet.cpp",
+        "fileloc": "25",
+        "instructions": "24",
+        "total_instructions": "24",
+        "calls": "",
+        "basicblocks": "4",
+        "loads": {
+            "L": "1"
+        },
+        "stores": {
+            "L": "2"
+        },
+        "loops": {
+            "L": "1"
+        }
+    },
+    "0": {
+        "name": "finn_feeder_chiplet",
+        "file": "finn_feeder_chiplet.cpp",
+        "fileloc": "3",
+        "instructions": "76",
+        "total_instructions": "100",
+        "calls": "1",
+        "basicblocks": "4",
+        "loads": {
+            "L": "1"
+        },
+        "stores": {
+            "L": "2"
+        },
+        "loops": {
+            "L": "1"
+        }
+    }
+}

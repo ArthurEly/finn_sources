@@ -371,3 +371,78 @@ def generate_feeder_test(a:str) -> str:
     return f"""
 
 """
+
+def case1():
+    #caso onde dividimos a memória em n inputs
+    return f"""
+        ap_int<15> p;
+        AXI_VALUE_pixel pixel;
+        AXI_VALUE_label label;
+        *done_irq = 0;
+
+        uint32_t address = (initial_address / 4) + img_idx * (image_size / 4);
+
+        for(p = 0; p < image_size / 4; p++) {{  // Read 32 bits (4 bytes) at a time
+        	#pragma HLS PIPELINE II=4
+            uint32_t word = ext_mem[address + p];
+
+            // Extract each byte from the 32-bit word and write to the stream
+            for (ap_int<4> i = 0; i < 4; i++) {{
+                pixel.data = (word >> (i * 8)) & 0xFF;  // Extract byte
+                out_stream.write(pixel);
+            }}
+        }}
+
+        // Ler o rótulo do stream de entrada (leitura bloqueante)
+        in_stream.read(label);
+        *predicted_index = label.data;
+        *done_irq = 1;
+"""
+
+def case2():
+    #caso onde carregamos a memória num buffer de tamanho do input
+    return f"""
+    ap_int<15> p;
+    AXI_VALUE_pixel pixel;
+    AXI_VALUE_label label;
+    *done_irq = 0;
+
+    uint32_t address = (initial_address / 4) + img_idx * (image_size / 4);
+
+    for(p = 0; p < image_size / 16; p++) {{  // Read 128 bits (16 bytes) at a time
+        #pragma HLS PIPELINE II=4
+
+        ap_int<128> data_128 = 0;
+
+        for (ap_int<4> i = 0; i < 4; i++) {{
+            uint32_t word = ext_mem[address + p * 4 + i];
+            data_128 |= (ap_int<128>(word) << (i * 32));
+        }}
+
+        pixel.data = data_128;
+        out_stream.write(pixel);
+    }}
+
+    // Ler o rótulo do stream de entrada (leitura bloqueante)
+    in_stream.read(label);
+    *predicted_index = label.data;
+    *done_irq = 1;
+"""
+
+def case3():
+    #caso onde lemos 1 pra 1
+    return f"""
+
+"""
+
+def case4():
+    #caso mais dificil, de leitura especulativa
+    return f"""
+
+"""
+
+def case5():
+    #caso onde I=M, acho que se encaixa no caso 1
+    return f"""
+
+"""

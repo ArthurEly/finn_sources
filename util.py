@@ -4,6 +4,7 @@ import subprocess
 import xml.etree.ElementTree as ET
 import json
 import custom_types as ct
+import os
 
 def extract_ip_vlnv(xml_file):
     try:
@@ -86,6 +87,13 @@ def read_json_file(file_path):
 
 def get_finn_ip_path(script_dir : str, finn_name : str) -> str:
     return f"{script_dir}/IPs/FINN_ips/{finn_name}/ip"
+
+def create_dir(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
+        print(f"Pasta '{path}' criada.")
+    else:
+        print(f"Pasta '{path}' já existe.")
 
 # Exemplo de uso
 

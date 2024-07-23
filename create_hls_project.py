@@ -40,9 +40,8 @@ def main() -> int:
     feeder_name = parsed_args.feeder_name
     clock_period = parsed_args.clock_period
     clock_uncertainty = parsed_args.clock_uncertainty
-    
-    script_dir = Path(os.getcwd()).absolute().as_posix()
 
+    script_dir = Path(os.getcwd()).absolute().as_posix()
     json = util.read_json_file("./feeder_config.json")
 
     # Escreve as funções main do HLS 
@@ -63,6 +62,8 @@ def main() -> int:
             finn_name=finn_name, 
             script_dir=script_dir)
         )
+
+    util.create_dir(f"{script_dir}/test_IPs/")
 
     # Escreve o script TCL em um arquivo
     tcl_script = templates.generate_hls_project_script(

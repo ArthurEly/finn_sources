@@ -1,0 +1,27 @@
+obj/finn_feeder_chiplet.o: \
+ ../../../../hls_sources/finn_feeder_chiplet.cpp \
+ ../../../../hls_sources/finn_feeder_chiplet.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/ap_axi_sdata.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/ap_int.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/etc/ap_common.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/etc/ap_decl.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/etc/ap_private.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/hls_half.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/etc/hls_half_fpo.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/hls_fpo.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/floating_point_v7_1_bitacc_cmodel.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/gmp.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/mpfr.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/gmp.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/mpfr.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/etc/hls_half_x_utils.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/etc/ap_int_base.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/etc/ap_int_ref.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/etc/ap_int_special.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/ap_fixed.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/etc/ap_fixed_base.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/ap_int.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/etc/ap_fixed_ref.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/etc/ap_fixed_special.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/hls_stream.h \
+ /media/artti/Dados/Vitis_HLS/2023.2/include/hls_stream.h

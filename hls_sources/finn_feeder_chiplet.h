@@ -1,8 +1,5 @@
-
-// Based on Xilinx XAPP1170
-
-#ifndef __FINN_FEEDER_H__
-#define __FINN_FEEDER_H__
+#ifndef __FINN_FEEDER_CHIPLET_H__
+#define __FINN_FEEDER_CHIPLET_H__
 
 #include <cmath>
 #include <ap_axi_sdata.h>
@@ -12,14 +9,12 @@
 #define IMAGESET_IMAGE_WIDTH          (32)
 #define IMAGESET_IMAGE_CHANNELS       (4)
 #define IMAGESET_IMAGE_CHANNEL_BYTES  (1)
-#define IMAGESET_CLASSES              (6)
+#define IMAGESET_CLASSES              (1)
 #define IMAGESET_CLASS_SAMPLES        (1)
 
-
 // Xilinx UG1399 AXI4-Stream Interfaces without Side-Channels
-typedef ap_axiu<8, 0, 0, 0, 0> AXI_VALUE_pixel; // 8 bits for pixel data
+typedef ap_axiu<40, 0, 0, 0, 0> AXI_VALUE_pixel; // 40 bits for pixel data
 typedef ap_axiu<8, 0, 0, 0, 0> AXI_VALUE_label; // 8 bits for label data
-
 
 void finn_feeder_chiplet(
     hls::stream<AXI_VALUE_pixel> &out_stream,
@@ -32,4 +27,4 @@ void finn_feeder_chiplet(
     volatile bool* done_irq
 );
 
-#endif /* __FINN_FEEDER_H__ */
+#endif /* __FINN_FEEDER_CHIPLET_H__ */
