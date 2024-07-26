@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vivadoHLSLog:LogRoot xmlns:vivadoHLSLog="www.xilinx.com/vivadoHLSLog">
+  <errorLogs>
+    <logs>
+      <csimLog>
+        <logs message="ERROR: [SIM 211-100] 'csim_design' failed: compilation error(s)." projectName="teste_hls" solutionName="solution1" date="2024-07-25T12:59:46.577-0300"/>
+        <logs message="ERROR: [SIM 211-100] 'csim_design' failed: compilation error(s)." projectName="teste_hls" solutionName="solution1" date="2024-07-23T18:35:51.308-0300"/>
+        <logs message="ERROR: [SIM 211-100] 'csim_design' failed: compilation error(s)." projectName="teste_hls" solutionName="solution1" date="2024-07-23T15:53:41.071-0300"/>
+        <logs message="ERROR: [SIM 211-100] 'csim_design' failed: compilation error(s)." projectName="teste_hls" solutionName="solution1" date="2024-07-23T15:51:15.107-0300"/>
+        <logs message="ERROR: [SIM 211-100] 'csim_design' failed: compilation error(s)." projectName="teste_hls" solutionName="solution1" date="2024-07-23T15:48:20.571-0300"/>
+        <logs message="ERROR: [SIM 211-100] 'csim_design' failed: compilation error(s)." projectName="teste_hls" solutionName="solution1" date="2024-07-23T15:44:38.807-0300"/>
+        <logs message="ERROR: [SIM 211-100] 'csim_design' failed: compilation error(s)." projectName="teste_hls" solutionName="solution1" date="2024-07-23T15:43:37.624-0300"/>
+      </csimLog>
+    </logs>
+  </errorLogs>
+  <warningLogs>
+    <logs>
+      <csimLog>
+        <logs message="WARNING [HLS SIM]: hls::stream 'hls::stream&lt;hls::axis&lt;ap_uint&lt;600>, 0ul, 0ul, 0ul, (unsigned char)0, false>, 0>0' contains leftover data, which may result in RTL simulation hanging." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:44:51.400-0300" type="Warning"/>
+        <logs message="WARNING [HLS SIM]: hls::stream 'hls::stream&lt;hls::axis&lt;ap_uint&lt;600>, 0ul, 0ul, 0ul, (unsigned char)0, false>, 0>0' contains leftover data, which may result in RTL simulation hanging." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:43:46.966-0300" type="Warning"/>
+        <logs message="WARNING [HLS SIM]: hls::stream 'hls::stream&lt;hls::axis&lt;ap_uint&lt;600>, 0ul, 0ul, 0ul, (unsigned char)0, false>, 0>0' contains leftover data, which may result in RTL simulation hanging." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.459-0300" type="Warning"/>
+        <logs message="Warning! Bitsize mismach for ap_[u]int |= ap_[u]int.&#xA;Erro: pixel[0][7] = 0x223344000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011223344&#xA;, esperado = 0x011223344&#xA;Teste falhou!" projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.458-0300" type="Warning"/>
+        <logs message="WARNING: Bitsize mismatch for ap_[u]int|=ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.457-0300" type="Warning"/>
+        <logs message="Warning! Bitsize mismach for ap_[u]int |= ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.456-0300" type="Warning"/>
+        <logs message="WARNING: Bitsize mismatch for ap_[u]int|=ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.454-0300" type="Warning"/>
+        <logs message="Warning! Bitsize mismach for ap_[u]int |= ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.453-0300" type="Warning"/>
+        <logs message="WARNING: Bitsize mismatch for ap_[u]int|=ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.452-0300" type="Warning"/>
+        <logs message="Warning! Bitsize mismach for ap_[u]int |= ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.451-0300" type="Warning"/>
+        <logs message="WARNING: Bitsize mismatch for ap_[u]int|=ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.450-0300" type="Warning"/>
+        <logs message="Warning! Bitsize mismach for ap_[u]int |= ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.449-0300" type="Warning"/>
+        <logs message="WARNING: Bitsize mismatch for ap_[u]int|=ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.448-0300" type="Warning"/>
+        <logs message="Warning! Bitsize mismach for ap_[u]int |= ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.447-0300" type="Warning"/>
+        <logs message="WARNING: Bitsize mismatch for ap_[u]int|=ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.445-0300" type="Warning"/>
+        <logs message="Warning! Bitsize mismach for ap_[u]int |= ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.444-0300" type="Warning"/>
+        <logs message="WARNING: Bitsize mismatch for ap_[u]int|=ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.443-0300" type="Warning"/>
+        <logs message="Warning! Bitsize mismach for ap_[u]int |= ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.442-0300" type="Warning"/>
+        <logs message="WARNING: Bitsize mismatch for ap_[u]int|=ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.441-0300" type="Warning"/>
+        <logs message="Warning! Bitsize mismach for ap_[u]int |= ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.440-0300" type="Warning"/>
+        <logs message="WARNING: Bitsize mismatch for ap_[u]int|=ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.439-0300" type="Warning"/>
+        <logs message="Warning! Bitsize mismach for ap_[u]int |= ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.438-0300" type="Warning"/>
+        <logs message="WARNING: Bitsize mismatch for ap_[u]int|=ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.437-0300" type="Warning"/>
+        <logs message="Warning! Bitsize mismach for ap_[u]int |= ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.434-0300" type="Warning"/>
+        <logs message="WARNING: Bitsize mismatch for ap_[u]int|=ap_[u]int." projectName="teste_hls" solutionName="solution1" date="2024-07-23T14:41:24.433-0300" type="Warning"/>
+      </csimLog>
+    </logs>
+  </warningLogs>
+</vivadoHLSLog:LogRoot>

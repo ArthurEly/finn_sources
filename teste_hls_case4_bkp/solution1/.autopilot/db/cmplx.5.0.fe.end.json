@@ -1,0 +1,38 @@
+{
+    "0": {
+        "name": "finn_feeder_chiplet",
+        "file": "finn_feeder_chiplet.cpp",
+        "fileloc": "4",
+        "instructions": "63",
+        "total_instructions": "103",
+        "calls": "1",
+        "basicblocks": "4",
+        "loads": {
+            "L": "1"
+        },
+        "stores": {
+            "L": "2"
+        },
+        "loops": {
+            "L": "1"
+        }
+    },
+    "1": {
+        "name": "finn_feeder_chiplet_Pipeline_VITIS_LOOP_36_2",
+        "file": "\/home\/artti\/Desktop\/finn_sources\/hls_sources\/finn_feeder_chiplet.cpp",
+        "fileloc": "28",
+        "instructions": "40",
+        "total_instructions": "40",
+        "calls": "",
+        "basicblocks": "4",
+        "loads": {
+            "L": "1"
+        },
+        "stores": {
+            "L": "2"
+        },
+        "loops": {
+            "L": "1"
+        }
+    }
+}

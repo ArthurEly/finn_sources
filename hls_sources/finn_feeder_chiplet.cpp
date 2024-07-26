@@ -81,9 +81,11 @@ void finn_feeder_chiplet(
 				write_ibuff_pointer = 0;
 			    finn_feeder_chiplet_label0:for (int i = 0; i < (INPUT_WIDTH/MEM_INPUT_GDC); i++) {
 			        input |= (ap_int<INPUT_WIDTH>(input_buffer[i]) << (i * MEM_INPUT_GDC));
+//			        std::cout << "input: " << std::hex << input << std::endl;
 			    }
 				pixel.data = input;
 				out_stream.write(pixel);
+				input = 0;
         	}
 
         	int next_valid_bytes = (INPUT_WIDTH/MEM_INPUT_GDC) - write_ibuff_pointer;

@@ -19,25 +19,15 @@ void initialize_memory(volatile uint32_t* ext_mem, uint32_t num_images, uint32_t
     }
 }
 
-// Função para deslocar à direita e mover o último byte para o início
-ap_uint<40> shift_right_and_move_last_byte(ap_uint<40> value, unsigned int shift, unsigned int width) {
-    // Desloca o valor para a direita
-    ap_uint<40> shifted_value = value >> shift;
+ap_uint<40> modify_bytes(ap_uint<40> num, unsigned int shift, unsigned int width) {
+    // Shift para a direita removendo o último byte
+    ap_uint<40> shifted_num = num >> shift;
 
-    // Obtém o último byte do valor deslocado
-    ap_uint<8> last_byte = shifted_value & 0xFF;
+    // Isolar o novo último byte depois do shift
+    ap_uint<40> new_last_byte = (shifted_num) << (width - shift);
 
-    // Obtém a parte restante do valor deslocado sem o último byte
-    ap_uint<32> remaining_value = shifted_value >> 8;
-
-    // Cria o resultado final colocando o último byte no início
-    ap_uint<40> result = (last_byte << (width - 8)) | remaining_value;
-
-    // Impressão para depuração
-    std::cout << "Valor original: " << std::hex << value << std::endl;
-    std::cout << "Valor deslocado: " << std::hex << shifted_value << std::endl;
-    std::cout << "Último byte após deslocamento: " << std::hex << (int)last_byte << std::endl;
-    std::cout << "Resultado final: " << std::hex << result << std::endl;
+    // Colocar o novo último byte na frente
+    ap_uint<40> result = new_last_byte | shifted_num;
 
     return result;
 }
@@ -64,14 +54,23 @@ int main() {
         in_stream.write(label);
     }
 
+//    std::cout << "Primeiros 500 valores de ext_mem:" << std::endl;
+//    for (int i = 0; i < 513; i++) {
+//        std::cout << std::hex << std::setw(8) << std::setfill('0') << ext_mem[i] << " ";
+//        if ((i + 1) % 10 == 0) { // 10 valores por linha
+//            std::cout << std::endl;
+//        }
+//    }
+
     // Call the DUT
     finn_feeder_chiplet(out_stream, in_stream, &predicted_index, ext_mem, initial_address, image_size, num_images, &done_irq);
 
     // Check the output stream
     bool success = true;
-    int base_data = 0x4411223344;
+    ap_uint<40> base_data = 0x4411223344;
 
     for (uint32_t img_idx = 0; img_idx < num_images; ++img_idx) {
+    	base_data = base_data * (img_idx + 1);
         for (uint32_t p = 0; p < image_size; p += 5) {
             if (out_stream.empty()) {
                 std::cout << "Erro: Stream vazio antes do esperado!" << std::endl;
@@ -80,18 +79,19 @@ int main() {
             }
             AXI_VALUE_pixel pixel = out_stream.read();
 //            std::cout << std::hex << (ap_int<40>)pixel.data << std::endl;
-            ap_uint<40> base_data = 0x4411223344;
 //            std::cout << base_data << std::endl;
-            ap_uint<40> expected_value = (0x4411223344 * (img_idx + 1));
-            base_data = shift_right_and_move_last_byte(base_data,8,40);
-//            std::cout << std::hex << base_data << std::endl;
+//            ap_uint<40> expected_value = (0x4411223344 * (img_idx + 1));
 
-            if (pixel.data != expected_value) {
+            if (pixel.data != base_data) {
                 std::cout << "Erro: pixel[" << img_idx << "][" << p / 5 << "] = "
                           << std::hex << pixel.data
-                          << ", esperado = " << expected_value << std::endl;
+                          << ", esperado = " << base_data << std::endl;
                 success = false;
             }
+
+            base_data = modify_bytes(base_data, 8, 40);
+//            std::cout << "oi caralho" << std::endl;
+//            std::cout << std::hex << base_data << std::endl;
         }
 
         if (predicted_index != 1) {
