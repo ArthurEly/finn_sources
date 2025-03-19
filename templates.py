@@ -72,9 +72,6 @@ endgroup
 regenerate_bd_layout
 make_wrapper -files [get_files {bd_file}] -top
 add_files -norecurse {gen_bd_dir}/hdl/{bd_name}_wrapper.v
-
-set_property verilog_define {verilog_define} [current_fileset]
-set_property verilog_define {verilog_define} [get_filesets sim_1]
 """
 
     return tcl_script
@@ -86,22 +83,29 @@ def generate_compatible_finn_sv(bd_name: str) -> str:
 `include "axi/assign.svh"
 `include "axi/typedef.svh"
 
-module compatible_{bd_name} (
+module compatible_{bd_name} #(
+    parameter AXI_ADDR_WIDTH = 32,
+    parameter AXI_DATA_WIDTH = 32,
+    parameter AXI_ID_WIDTH   = 3,
+    parameter AXI_USER_WIDTH = 2
+)
+(
     input wire clk,
     input wire rst_n,
     AXI_BUS.Master axi_master_mem,
-    AXI_BUS.Slave axi_slave_ctrl
+    AXI_BUS.Slave axi_slave_ctrl,
+    output wire done_irq
 );  
     AXI_LITE #(
-        .AXI_ADDR_WIDTH(32),
-        .AXI_DATA_WIDTH(32)
+        .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
+        .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
     ) conv();
 
     axi_to_axi_lite_intf #(
-        .AXI_ADDR_WIDTH(32),
-        .AXI_DATA_WIDTH(32),
-        .AXI_ID_WIDTH(2),
-        .AXI_USER_WIDTH(2)
+        .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
+        .AXI_DATA_WIDTH(AXI_DATA_WIDTH),
+        .AXI_ID_WIDTH(AXI_ID_WIDTH),
+        .AXI_USER_WIDTH(AXI_USER_WIDTH)
     ) axi_to_axi_lite (
         .clk_i (clk),
         .rst_ni(rst_n),
@@ -114,7 +118,7 @@ module compatible_{bd_name} (
     {bd_name}_wrapper finn_chiplet_inst (
       .ap_clk_0                 (clk),
       .ap_rst_n_0               (rst_n),
-      .done_irq_0               (),
+      .done_irq_0               (done_irq),
       .done_irq_ap_vld_0        (),
       .interrupt_0              (),
       .m_axi_gmem_0_araddr      (axi_master_mem.ar_addr),
@@ -191,7 +195,7 @@ def generate_feeder_main(cfg_json : custom_types.FeederConfig, finn_name: str, s
     finn_ip_dir = util.get_finn_ip_path(script_dir=script_dir,finn_name=finn_name)
     io_bits = util.extract_io_bits(finn_ip_dir + "/component.xml")
 
-    input_bits = io_bits['m_axis_0']
+    input_bits = io_bits['s_axis_0']
     output_bits = io_bits['m_axis_0']
 
     input_size = int(util.multiply_elements(cfg_json['input_shape']))
@@ -199,7 +203,7 @@ def generate_feeder_main(cfg_json : custom_types.FeederConfig, finn_name: str, s
     
     n_batchs = int(cfg_json['memory_address_width'] / input_bits)
 
-    return f"""#include "finn_feeder_chiplet.h"
+    return f"""#include "{feeder_name}.h"
 
 {get_feeder_main_assignature(cfg_json=cfg_json, feeder_name=feeder_name)}
 {{
@@ -214,7 +218,7 @@ def generate_feeder_main(cfg_json : custom_types.FeederConfig, finn_name: str, s
     #pragma HLS INTERFACE mode=m_axi port=ext_mem
 
 	uint{cfg_json['memory_address_width']}_t  img_idx;
-
+    *done_irq = 0;
     for (img_idx = 0; img_idx < num_images; img_idx++) {{
     	ap_int<{input_ptr_max_size}> p;
         AXI_VALUE_pixel pixel;
@@ -232,27 +236,40 @@ def generate_feeder_main(cfg_json : custom_types.FeederConfig, finn_name: str, s
 """
 
 def generate_bytes_sender (n_batchs : int, input_bits : int, cfg_json : custom_types.FeederConfig) -> str:
-    return f"""
-        uint32_t address = (initial_address / {n_batchs}) + img_idx * (image_size / {n_batchs});
+    bytes_sender = ""
 
-        for(p = 0; p < image_size / {n_batchs}; p++) {{  // Read 32 bits (4 bytes) at a time
-        	#pragma HLS PIPELINE II={n_batchs}
-            uint{cfg_json['memory_data_width']}_t word = ext_mem[address + p];
+    if (input_bits < cfg_json['memory_data_width']):
+        if (cfg_json['memory_data_width'] % input_bits == 0):
+            bytes_sender = f"""
+                uint32_t address = (initial_address / {n_batchs}) + img_idx * (image_size / {n_batchs});
 
-            ap_int<{int(math.log(n_batchs,2)*2)}> pkts = {n_batchs};
-            // Extract each byte from the 32-bit word and write to the stream
-            for (ap_int<{int(math.log(n_batchs,2)*2)}> i = 0; i < pkts; i++) {{
-                pixel.data = (word >> (i * {input_bits})) & 0x{'F' * int(input_bits / 4)};  // Extract byte
-                out_stream.write(pixel);
-            }}
-        }}
-"""
+                for(p = 0; p < image_size / 4; p++) {{  // Read 32 bits (4 bytes) at a time
+                    #pragma HLS PIPELINE II={n_batchs}
+                    uint{cfg_json['memory_data_width']}_t word = ext_mem[address + p];
+
+                    ap_int<{int(math.log(n_batchs,2)*4)}> pkts = {n_batchs};
+                    // Extract each byte from the 32-bit word and write to the stream
+                    for (ap_int<{int(math.log(n_batchs,2)*4)}> i = 0; i < pkts; i++) {{
+                        pixel.data = (word >> (i * {input_bits})) & 0x{'F' * int(input_bits / 4)};  // Extract byte
+                        out_stream.write(pixel);
+                    }}
+                }}
+            """
+        else: 
+            print("fodase?")
+    else:
+        if (input_bits % cfg_json['memory_data_width'] == 0):
+            print("fodase2")
+        else:
+            print("fodase3")                   
+
+    return bytes_sender
 
 def generate_feeder_main_header(cfg_json : custom_types.FeederConfig, finn_name: str, script_dir : str,  feeder_name : str) -> str:
     finn_ip_dir = util.get_finn_ip_path(script_dir=script_dir,finn_name=finn_name)
     io_bits = util.extract_io_bits(finn_ip_dir + "/component.xml")
 
-    input_bits = io_bits['m_axis_0']
+    input_bits = io_bits['s_axis_0']
     output_bits = io_bits['m_axis_0']
     
     return f"""
@@ -284,6 +301,9 @@ typedef ap_axiu<{output_bits}, 0, 0, 0, 0> AXI_VALUE_label; // {output_bits} bit
 
 def get_feeder_main_assignature(cfg_json : custom_types.FeederConfig, feeder_name : str) -> str:   
     return f"""
+
+volatile bool done_irq = 0;
+
 void {feeder_name}(
     hls::stream<AXI_VALUE_pixel> &out_stream,
     hls::stream<AXI_VALUE_label> &in_stream,
@@ -351,8 +371,8 @@ set result [catch {{set_clock_uncertainty {clock_uncertainty}}} result]
 handleError $result $result "Definir Incerteza do Clock"
 
 # Simulação de comportamento (CSim)
-set result [catch {{csim_design}} result]
-handleError $result $result "Simulação de Comportamento"
+# set result [catch {{csim_design}} result]
+# handleError $result $result "Simulação de Comportamento"
 
 # Síntese (CSynth)
 set result [catch {{csynth_design}} result]

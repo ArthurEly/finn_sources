@@ -6,7 +6,7 @@
 
 `timescale 1 ns / 1 ps 
 
-(* CORE_GENERATION_INFO="finn_feeder_chiplet_finn_feeder_chiplet,hls_ip_2023_2,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xc7a100t-csg324-3,HLS_INPUT_CLOCK=10.000000,HLS_INPUT_ARCH=others,HLS_SYN_CLOCK=9.500000,HLS_SYN_LAT=-1,HLS_SYN_TPT=none,HLS_SYN_MEM=4,HLS_SYN_DSP=0,HLS_SYN_FF=1509,HLS_SYN_LUT=1694,HLS_VERSION=2023_2}" *)
+(* CORE_GENERATION_INFO="finn_feeder_chiplet_finn_feeder_chiplet,hls_ip_2023_2,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xc7a100t-csg324-1,HLS_INPUT_CLOCK=10.000000,HLS_INPUT_ARCH=others,HLS_SYN_CLOCK=9.500000,HLS_SYN_LAT=-1,HLS_SYN_TPT=none,HLS_SYN_MEM=4,HLS_SYN_DSP=0,HLS_SYN_FF=1541,HLS_SYN_LUT=1694,HLS_VERSION=2023_2}" *)
 
 module finn_feeder_chiplet (
         ap_clk,
@@ -210,48 +210,51 @@ wire   [29:0] shr1_fu_180_p4;
 reg   [29:0] shr1_reg_246;
 wire   [31:0] shr1_cast_fu_190_p1;
 reg   [31:0] shr1_cast_reg_251;
-wire   [31:0] address_fu_214_p2;
-reg   [31:0] address_reg_259;
+wire   [31:0] mul_ln36_fu_162_p2;
+reg   [31:0] mul_ln36_reg_259;
 wire    ap_CS_fsm_state2;
-wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_start;
-wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_done;
-wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_idle;
-wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_ready;
-wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_out_stream_TREADY;
-wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWVALID;
-wire   [63:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWADDR;
-wire   [0:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWID;
-wire   [31:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWLEN;
-wire   [2:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWSIZE;
-wire   [1:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWBURST;
-wire   [1:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWLOCK;
-wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWCACHE;
-wire   [2:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWPROT;
-wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWQOS;
-wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWREGION;
-wire   [0:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWUSER;
-wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_WVALID;
-wire   [31:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_WDATA;
-wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_WSTRB;
-wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_WLAST;
-wire   [0:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_WID;
-wire   [0:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_WUSER;
-wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARVALID;
-wire   [63:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARADDR;
-wire   [0:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARID;
-wire   [31:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARLEN;
-wire   [2:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARSIZE;
-wire   [1:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARBURST;
-wire   [1:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARLOCK;
-wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARCACHE;
-wire   [2:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARPROT;
-wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARQOS;
-wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARREGION;
-wire   [0:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARUSER;
-wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_RREADY;
-wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_BREADY;
-wire   [7:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_out_stream_TDATA;
-wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_out_stream_TVALID;
+wire   [31:0] address_fu_219_p2;
+reg   [31:0] address_reg_264;
+wire    ap_CS_fsm_state3;
+wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_start;
+wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_done;
+wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_idle;
+wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_ready;
+wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_out_stream_TREADY;
+wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWVALID;
+wire   [63:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWADDR;
+wire   [0:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWID;
+wire   [31:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWLEN;
+wire   [2:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWSIZE;
+wire   [1:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWBURST;
+wire   [1:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWLOCK;
+wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWCACHE;
+wire   [2:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWPROT;
+wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWQOS;
+wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWREGION;
+wire   [0:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWUSER;
+wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_WVALID;
+wire   [31:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_WDATA;
+wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_WSTRB;
+wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_WLAST;
+wire   [0:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_WID;
+wire   [0:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_WUSER;
+wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARVALID;
+wire   [63:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARADDR;
+wire   [0:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARID;
+wire   [31:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARLEN;
+wire   [2:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARSIZE;
+wire   [1:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARBURST;
+wire   [1:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARLOCK;
+wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARCACHE;
+wire   [2:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARPROT;
+wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARQOS;
+wire   [3:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARREGION;
+wire   [0:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARUSER;
+wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_RREADY;
+wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_BREADY;
+wire   [7:0] grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_out_stream_TDATA;
+wire    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_out_stream_TVALID;
 wire    gmem_AWREADY;
 wire    gmem_WREADY;
 reg    gmem_ARVALID;
@@ -261,17 +264,15 @@ reg    gmem_RREADY;
 wire   [31:0] gmem_RDATA;
 wire   [8:0] gmem_RFIFONUM;
 wire    gmem_BVALID;
-reg    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_start_reg;
-wire    ap_CS_fsm_state3;
+reg    grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_start_reg;
 wire    ap_CS_fsm_state4;
 reg  signed [31:0] img_idx_fu_100;
 wire   [31:0] img_idx_2_fu_208_p2;
-wire   [0:0] icmp_ln25_fu_203_p2;
-wire   [29:0] mul_ln31_fu_162_p1;
+wire   [0:0] icmp_ln30_fu_203_p2;
+wire   [29:0] mul_ln36_fu_162_p1;
 wire   [29:0] shr_fu_166_p4;
-wire  signed [31:0] icmp_ln25_fu_203_p0;
+wire  signed [31:0] icmp_ln30_fu_203_p0;
 wire  signed [31:0] img_idx_2_fu_208_p0;
-wire   [31:0] mul_ln31_fu_162_p2;
 wire    ap_CS_fsm_state6;
 wire    regslice_both_out_stream_V_data_V_U_apdone_blk;
 reg   [5:0] ap_NS_fsm;
@@ -293,53 +294,53 @@ wire    ap_ce_reg;
 // power-on initialization
 initial begin
 #0 ap_CS_fsm = 6'd1;
-#0 grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_start_reg = 1'b0;
+#0 grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_start_reg = 1'b0;
 #0 img_idx_fu_100 = 32'd0;
 end
 
-finn_feeder_chiplet_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2 grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151(
+finn_feeder_chiplet_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2 grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst_n_inv),
-    .ap_start(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_start),
-    .ap_done(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_done),
-    .ap_idle(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_idle),
-    .ap_ready(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_ready),
-    .out_stream_TREADY(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_out_stream_TREADY),
-    .m_axi_gmem_AWVALID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWVALID),
+    .ap_start(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_start),
+    .ap_done(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_done),
+    .ap_idle(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_idle),
+    .ap_ready(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_ready),
+    .out_stream_TREADY(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_out_stream_TREADY),
+    .m_axi_gmem_AWVALID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWVALID),
     .m_axi_gmem_AWREADY(1'b0),
-    .m_axi_gmem_AWADDR(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWADDR),
-    .m_axi_gmem_AWID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWID),
-    .m_axi_gmem_AWLEN(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWLEN),
-    .m_axi_gmem_AWSIZE(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWSIZE),
-    .m_axi_gmem_AWBURST(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWBURST),
-    .m_axi_gmem_AWLOCK(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWLOCK),
-    .m_axi_gmem_AWCACHE(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWCACHE),
-    .m_axi_gmem_AWPROT(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWPROT),
-    .m_axi_gmem_AWQOS(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWQOS),
-    .m_axi_gmem_AWREGION(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWREGION),
-    .m_axi_gmem_AWUSER(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_AWUSER),
-    .m_axi_gmem_WVALID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_WVALID),
+    .m_axi_gmem_AWADDR(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWADDR),
+    .m_axi_gmem_AWID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWID),
+    .m_axi_gmem_AWLEN(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWLEN),
+    .m_axi_gmem_AWSIZE(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWSIZE),
+    .m_axi_gmem_AWBURST(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWBURST),
+    .m_axi_gmem_AWLOCK(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWLOCK),
+    .m_axi_gmem_AWCACHE(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWCACHE),
+    .m_axi_gmem_AWPROT(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWPROT),
+    .m_axi_gmem_AWQOS(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWQOS),
+    .m_axi_gmem_AWREGION(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWREGION),
+    .m_axi_gmem_AWUSER(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_AWUSER),
+    .m_axi_gmem_WVALID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_WVALID),
     .m_axi_gmem_WREADY(1'b0),
-    .m_axi_gmem_WDATA(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_WDATA),
-    .m_axi_gmem_WSTRB(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_WSTRB),
-    .m_axi_gmem_WLAST(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_WLAST),
-    .m_axi_gmem_WID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_WID),
-    .m_axi_gmem_WUSER(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_WUSER),
-    .m_axi_gmem_ARVALID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARVALID),
+    .m_axi_gmem_WDATA(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_WDATA),
+    .m_axi_gmem_WSTRB(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_WSTRB),
+    .m_axi_gmem_WLAST(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_WLAST),
+    .m_axi_gmem_WID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_WID),
+    .m_axi_gmem_WUSER(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_WUSER),
+    .m_axi_gmem_ARVALID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARVALID),
     .m_axi_gmem_ARREADY(gmem_ARREADY),
-    .m_axi_gmem_ARADDR(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARADDR),
-    .m_axi_gmem_ARID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARID),
-    .m_axi_gmem_ARLEN(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARLEN),
-    .m_axi_gmem_ARSIZE(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARSIZE),
-    .m_axi_gmem_ARBURST(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARBURST),
-    .m_axi_gmem_ARLOCK(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARLOCK),
-    .m_axi_gmem_ARCACHE(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARCACHE),
-    .m_axi_gmem_ARPROT(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARPROT),
-    .m_axi_gmem_ARQOS(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARQOS),
-    .m_axi_gmem_ARREGION(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARREGION),
-    .m_axi_gmem_ARUSER(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARUSER),
+    .m_axi_gmem_ARADDR(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARADDR),
+    .m_axi_gmem_ARID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARID),
+    .m_axi_gmem_ARLEN(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARLEN),
+    .m_axi_gmem_ARSIZE(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARSIZE),
+    .m_axi_gmem_ARBURST(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARBURST),
+    .m_axi_gmem_ARLOCK(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARLOCK),
+    .m_axi_gmem_ARCACHE(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARCACHE),
+    .m_axi_gmem_ARPROT(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARPROT),
+    .m_axi_gmem_ARQOS(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARQOS),
+    .m_axi_gmem_ARREGION(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARREGION),
+    .m_axi_gmem_ARUSER(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARUSER),
     .m_axi_gmem_RVALID(gmem_RVALID),
-    .m_axi_gmem_RREADY(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_RREADY),
+    .m_axi_gmem_RREADY(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_RREADY),
     .m_axi_gmem_RDATA(gmem_RDATA),
     .m_axi_gmem_RLAST(1'b0),
     .m_axi_gmem_RID(1'd0),
@@ -347,15 +348,15 @@ finn_feeder_chiplet_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2 grp_finn_feeder
     .m_axi_gmem_RUSER(1'd0),
     .m_axi_gmem_RRESP(2'd0),
     .m_axi_gmem_BVALID(1'b0),
-    .m_axi_gmem_BREADY(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_BREADY),
+    .m_axi_gmem_BREADY(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_BREADY),
     .m_axi_gmem_BRESP(2'd0),
     .m_axi_gmem_BID(1'd0),
     .m_axi_gmem_BUSER(1'd0),
-    .zext_ln25(shr1_reg_246),
-    .conv3_i_i_i45(address_reg_259),
+    .zext_ln30(shr1_reg_246),
+    .conv3_i_i_i45(address_reg_264),
     .ext_mem(ext_mem_read_reg_236),
-    .out_stream_TDATA(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_out_stream_TDATA),
-    .out_stream_TVALID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_out_stream_TVALID)
+    .out_stream_TDATA(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_out_stream_TDATA),
+    .out_stream_TVALID(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_out_stream_TVALID)
 );
 
 finn_feeder_chiplet_control_s_axi #(
@@ -467,8 +468,8 @@ gmem_m_axi_U(
     .ACLK_EN(1'b1),
     .I_ARVALID(gmem_ARVALID),
     .I_ARREADY(gmem_ARREADY),
-    .I_ARADDR(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARADDR),
-    .I_ARLEN(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARLEN),
+    .I_ARADDR(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARADDR),
+    .I_ARLEN(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARLEN),
     .I_RVALID(gmem_RVALID),
     .I_RREADY(gmem_RREADY),
     .I_RDATA(gmem_RDATA),
@@ -493,8 +494,8 @@ finn_feeder_chiplet_mul_32s_30ns_32_1_1 #(
     .dout_WIDTH( 32 ))
 mul_32s_30ns_32_1_1_U6(
     .din0(img_idx_fu_100),
-    .din1(mul_ln31_fu_162_p1),
-    .dout(mul_ln31_fu_162_p2)
+    .din1(mul_ln36_fu_162_p1),
+    .dout(mul_ln36_fu_162_p2)
 );
 
 finn_feeder_chiplet_regslice_both #(
@@ -502,8 +503,8 @@ finn_feeder_chiplet_regslice_both #(
 regslice_both_out_stream_V_data_V_U(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst_n_inv),
-    .data_in(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_out_stream_TDATA),
-    .vld_in(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_out_stream_TVALID),
+    .data_in(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_out_stream_TDATA),
+    .vld_in(grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_out_stream_TVALID),
     .ack_in(out_stream_TREADY_int_regslice),
     .data_out(out_stream_TDATA),
     .vld_out(regslice_both_out_stream_V_data_V_U_vld_out),
@@ -535,12 +536,12 @@ end
 
 always @ (posedge ap_clk) begin
     if (ap_rst_n_inv == 1'b1) begin
-        grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_start_reg <= 1'b0;
+        grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_start_reg <= 1'b0;
     end else begin
         if ((1'b1 == ap_CS_fsm_state3)) begin
-            grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_start_reg <= 1'b1;
-        end else if ((grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_ready == 1'b1)) begin
-            grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_start_reg <= 1'b0;
+            grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_start_reg <= 1'b1;
+        end else if ((grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_ready == 1'b1)) begin
+            grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_start_reg <= 1'b0;
         end
     end
 end
@@ -548,14 +549,14 @@ end
 always @ (posedge ap_clk) begin
     if (((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b1))) begin
         img_idx_fu_100 <= 32'd0;
-    end else if (((icmp_ln25_fu_203_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2))) begin
+    end else if (((icmp_ln30_fu_203_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2))) begin
         img_idx_fu_100 <= img_idx_2_fu_208_p2;
     end
 end
 
 always @ (posedge ap_clk) begin
-    if ((1'b1 == ap_CS_fsm_state2)) begin
-        address_reg_259 <= address_fu_214_p2;
+    if ((1'b1 == ap_CS_fsm_state3)) begin
+        address_reg_264 <= address_fu_219_p2;
     end
 end
 
@@ -566,6 +567,12 @@ always @ (posedge ap_clk) begin
         shr1_cast_reg_251[29 : 0] <= shr1_cast_fu_190_p1[29 : 0];
         shr1_reg_246 <= {{image_size[31:2]}};
         shr_cast_reg_241[29 : 0] <= shr_cast_fu_176_p1[29 : 0];
+    end
+end
+
+always @ (posedge ap_clk) begin
+    if ((1'b1 == ap_CS_fsm_state2)) begin
+        mul_ln36_reg_259 <= mul_ln36_fu_162_p2;
     end
 end
 
@@ -582,7 +589,7 @@ assign ap_ST_fsm_state2_blk = 1'b0;
 assign ap_ST_fsm_state3_blk = 1'b0;
 
 always @ (*) begin
-    if ((grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_done == 1'b0)) begin
+    if ((grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_done == 1'b0)) begin
         ap_ST_fsm_state4_blk = 1'b1;
     end else begin
         ap_ST_fsm_state4_blk = 1'b0;
@@ -632,7 +639,7 @@ end
 always @ (*) begin
     if (((in_stream_TVALID_int_regslice == 1'b1) & (1'b1 == ap_CS_fsm_state5))) begin
         done_irq = 1'd1;
-    end else if (((icmp_ln25_fu_203_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2))) begin
+    end else if ((((icmp_ln30_fu_203_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2)) | ((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b1)))) begin
         done_irq = 1'd0;
     end else begin
         done_irq = 'bx;
@@ -640,7 +647,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((((in_stream_TVALID_int_regslice == 1'b1) & (1'b1 == ap_CS_fsm_state5)) | ((icmp_ln25_fu_203_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2)))) begin
+    if ((((in_stream_TVALID_int_regslice == 1'b1) & (1'b1 == ap_CS_fsm_state5)) | ((icmp_ln30_fu_203_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state2)) | ((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b1)))) begin
         done_irq_ap_vld = 1'b1;
     end else begin
         done_irq_ap_vld = 1'b0;
@@ -649,7 +656,7 @@ end
 
 always @ (*) begin
     if (((1'b1 == ap_CS_fsm_state4) | (1'b1 == ap_CS_fsm_state3))) begin
-        gmem_ARVALID = grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_ARVALID;
+        gmem_ARVALID = grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_ARVALID;
     end else begin
         gmem_ARVALID = 1'b0;
     end
@@ -657,7 +664,7 @@ end
 
 always @ (*) begin
     if (((1'b1 == ap_CS_fsm_state4) | (1'b1 == ap_CS_fsm_state3))) begin
-        gmem_RREADY = grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_m_axi_gmem_RREADY;
+        gmem_RREADY = grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_m_axi_gmem_RREADY;
     end else begin
         gmem_RREADY = 1'b0;
     end
@@ -697,7 +704,7 @@ always @ (*) begin
             end
         end
         ap_ST_fsm_state2 : begin
-            if (((icmp_ln25_fu_203_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state2))) begin
+            if (((icmp_ln30_fu_203_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state2))) begin
                 ap_NS_fsm = ap_ST_fsm_state6;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state3;
@@ -707,7 +714,7 @@ always @ (*) begin
             ap_NS_fsm = ap_ST_fsm_state4;
         end
         ap_ST_fsm_state4 : begin
-            if (((1'b1 == ap_CS_fsm_state4) & (grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_done == 1'b1))) begin
+            if (((1'b1 == ap_CS_fsm_state4) & (grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_done == 1'b1))) begin
                 ap_NS_fsm = ap_ST_fsm_state5;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state4;
@@ -733,7 +740,7 @@ always @ (*) begin
     endcase
 end
 
-assign address_fu_214_p2 = (mul_ln31_fu_162_p2 + shr_cast_reg_241);
+assign address_fu_219_p2 = (mul_ln36_reg_259 + shr_cast_reg_241);
 
 assign ap_CS_fsm_state1 = ap_CS_fsm[32'd0];
 
@@ -751,13 +758,13 @@ always @ (*) begin
     ap_rst_n_inv = ~ap_rst_n;
 end
 
-assign grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_start = grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_ap_start_reg;
+assign grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_start = grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_ap_start_reg;
 
-assign grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151_out_stream_TREADY = (out_stream_TREADY_int_regslice & ap_CS_fsm_state4);
+assign grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151_out_stream_TREADY = (out_stream_TREADY_int_regslice & ap_CS_fsm_state4);
 
-assign icmp_ln25_fu_203_p0 = img_idx_fu_100;
+assign icmp_ln30_fu_203_p0 = img_idx_fu_100;
 
-assign icmp_ln25_fu_203_p2 = ((icmp_ln25_fu_203_p0 == num_images_read_reg_231) ? 1'b1 : 1'b0);
+assign icmp_ln30_fu_203_p2 = ((icmp_ln30_fu_203_p0 == num_images_read_reg_231) ? 1'b1 : 1'b0);
 
 assign img_idx_2_fu_208_p0 = img_idx_fu_100;
 
@@ -765,7 +772,7 @@ assign img_idx_2_fu_208_p2 = ($signed(img_idx_2_fu_208_p0) + $signed(32'd1));
 
 assign in_stream_TREADY = regslice_both_in_stream_V_data_V_U_ack_in;
 
-assign mul_ln31_fu_162_p1 = shr1_cast_reg_251;
+assign mul_ln36_fu_162_p1 = shr1_cast_reg_251;
 
 assign out_stream_TVALID = regslice_both_out_stream_V_data_V_U_vld_out;
 

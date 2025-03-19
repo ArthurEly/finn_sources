@@ -57,7 +57,7 @@ def main() -> int:
                 feeder_name=feeder_name,
                 fpga_board_name=fpga_board_name,
                 isWindows=isWindows,
-                id_width=2,
+                id_width=3,
                 user_width=2,
                 verilog_define="USE_FINN"
             ))

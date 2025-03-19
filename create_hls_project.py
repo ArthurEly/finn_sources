@@ -17,16 +17,16 @@ def main() -> int:
     project_name = "teste_hls"
     parser.add_argument('-p', '--project', type=str, help='Nome do projeto Vitis', default=project_name)
 
-    fpga_part = "xc7z020clg400-1"
+    fpga_part = "xc7a100tcsg324-1"
     parser.add_argument('-fp', '--fpga_part', type=str, help='Nome da placa FPGA', default=fpga_part)
     
-    finn_name = "t2w8_5000fps" # igual o nome da pasta dentro dos IPs
+    finn_name = "t2w8_50000fps" # igual o nome da pasta dentro dos IPs
     parser.add_argument('-f', '--finn', type=str, help='Nome do IP do FINN', default=finn_name)
 
-    feeder_name = "finn_feeder_chiplet"
+    feeder_name = "finn_feeder_21b_16"
     parser.add_argument('-fd', '--feeder_name', type=str, help='Nome do feeder', default=feeder_name)
     
-    config_json = "config.json" # igual o nome da pasta dentro dos IPs    
+    config_json = "feeder_config.json" # igual o nome da pasta dentro dos IPs    
     parser.add_argument('-j', '--json', type=str, help='Caminho para o JSON de configuração', default=config_json)
 
     clock_period = 10

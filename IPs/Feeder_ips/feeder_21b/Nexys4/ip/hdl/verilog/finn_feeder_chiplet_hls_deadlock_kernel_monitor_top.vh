@@ -11,12 +11,12 @@ wire [0:0] inst_block_sigs;
 wire kernel_block;
 
 assign axis_block_sigs[0] = ~in_stream_TDATA_blk_n;
-assign axis_block_sigs[1] = ~grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151.out_stream_TDATA_blk_n;
+assign axis_block_sigs[1] = ~grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151.out_stream_TDATA_blk_n;
 
 assign inst_block_sigs[0] = 1'b0;
 
 assign inst_idle_sigs[0] = 1'b0;
-assign inst_idle_sigs[1] = grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2_fu_151.ap_idle;
+assign inst_idle_sigs[1] = grp_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2_fu_151.ap_idle;
 
 finn_feeder_chiplet_hls_deadlock_idx0_monitor finn_feeder_chiplet_hls_deadlock_idx0_monitor_U (
     .clock(kernel_monitor_clock),

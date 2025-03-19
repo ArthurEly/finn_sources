@@ -9,13 +9,13 @@ def main() -> int:
     parser = argparse.ArgumentParser(description='Gera um IP Feeder, um controlador específico para um acelerador gerado com o FINN.')
     project_name = "teste"
     parser.add_argument('-p', '--project', type=str, help='Nome do projeto Vivado', default=project_name)
-    board_fpga_part = "xc7z020clg400-1" # igual o nome da pasta dentro dos IPs
+    board_fpga_part = "xc7a100tcsg324-1" # igual o nome da pasta dentro dos IPs
     parser.add_argument('-fp', '--fpga_part', type=str, help='FPGA part da placa', default=board_fpga_part)
-    finn_name = "t2w8_5000fps" # igual o nome da pasta dentro dos IPs
+    finn_name = "t2w8_50000fps" # igual o nome da pasta dentro dos IPs
     parser.add_argument('-f', '--finn', type=str, help='Nome do IP do FINN', default=finn_name)
-    config_json = "config.json" # igual o nome da pasta dentro dos IPs
+    config_json = "feeder_config.json" # igual o nome da pasta dentro dos IPs
     parser.add_argument('-j', '--json', type=str, help='Caminho para o JSON de configuração', default=config_json)
-    feeder_name = "finn_feeder_chiplet"
+    feeder_name = "finn_feeder_21b_16"
     parser.add_argument('-fd','--feeder', type=str, help='Nome do feeder', default=feeder_name)
 
     isWindows = sys.platform.startswith('win') or sys.platform.startswith('cygwin')
@@ -39,19 +39,21 @@ def main() -> int:
     json = util.read_json_file("./feeder_config.json")
 
     # Escreve o script TCL em um arquivo
-    with open(f"/home/artti/Desktop/finn_sources/hls_teste/feeder/finn_feeder_chiplet/finn_feeder_chiplet.cpp", "w") as file:
+    with open(f"{script_dir}/hls_sources/finn_feeder_chiplet.cpp", "w") as file:
         file.write(templates.generate_feeder_main(
             cfg_json=json, 
             finn_name=finn_name, 
+            feeder_name=feeder_name,
             script_dir=script_dir)
         )
         print("ainnnn")
     
     # Escreve o script TCL em um arquivo
-    with open(f"/home/artti/Desktop/finn_sources/hls_teste/feeder/finn_feeder_chiplet/finn_feeder_chiplet.h", "w") as file:
+    with open(f"{script_dir}/hls_sources/finn_feeder_chiplet.h", "w") as file:
         file.write(templates.generate_feeder_main_header(
             cfg_json=json, 
             finn_name=finn_name, 
+            feeder_name=feeder_name,
             script_dir=script_dir)
         )
         print("ainnnn")

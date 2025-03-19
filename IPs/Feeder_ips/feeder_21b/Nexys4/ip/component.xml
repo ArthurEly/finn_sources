@@ -1266,7 +1266,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>bc29a58a</spirit:value>
+            <spirit:value>6ef6319d</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1282,7 +1282,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>0594ef5b</spirit:value>
+            <spirit:value>dfdab122</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1298,7 +1298,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>4d6d082e</spirit:value>
+            <spirit:value>51d6e655</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1314,7 +1314,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>8794328e</spirit:value>
+            <spirit:value>c4b54557</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2706,7 +2706,7 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/verilog/finn_feeder_chiplet_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2.v</spirit:name>
+        <spirit:name>hdl/verilog/finn_feeder_chiplet_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -2746,7 +2746,7 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/verilog/finn_feeder_chiplet_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2.v</spirit:name>
+        <spirit:name>hdl/verilog/finn_feeder_chiplet_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -2798,7 +2798,7 @@
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/vhdl/finn_feeder_chiplet_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2.vhd</spirit:name>
+        <spirit:name>hdl/vhdl/finn_feeder_chiplet_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -2820,7 +2820,7 @@
       <spirit:file>
         <spirit:name>hdl/vhdl/finn_feeder_chiplet.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_e6deadac</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_1dbf2fc7</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -2831,7 +2831,7 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/vhdl/finn_feeder_chiplet_finn_feeder_chiplet_Pipeline_VITIS_LOOP_33_2.vhd</spirit:name>
+        <spirit:name>hdl/vhdl/finn_feeder_chiplet_finn_feeder_chiplet_Pipeline_VITIS_LOOP_38_2.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -3083,7 +3083,7 @@
       <xilinx:displayName>FINN Feeder chiplet 8 bits</xilinx:displayName>
       <xilinx:definitionSource>HLS</xilinx:definitionSource>
       <xilinx:coreRevision>1</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2024-06-25T13:54:08Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2024-09-26T05:32:23Z</xilinx:coreCreationDateTime>
       <xilinx:sdxKernelAttributes>
         <xilinx:sdx_kernel>true</xilinx:sdx_kernel>
         <xilinx:sdx_kernel_type>hls</xilinx:sdx_kernel_type>
@@ -3094,7 +3094,7 @@
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="ae0ae741"/>
       <xilinx:checksum xilinx:scope="addressSpaces" xilinx:value="2c1df7e3"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="cf82295f"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="7c58b09d"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="7f812fd6"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="36cff11f"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="2e845cac"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="54a26e3e"/>
